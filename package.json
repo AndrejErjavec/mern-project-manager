@@ -1,0 +1,29 @@
+{
+  "name": "mern-project-manager",
+  "version": "1.0.0",
+  "description": "Project manager app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "",
+    "dev": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrejErjavec/mern-project-manager.git"
+  },
+  "author": "Andrej Erjavec",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrejErjavec/mern-project-manager/issues"
+  },
+  "homepage": "https://github.com/AndrejErjavec/mern-project-manager#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.16"
+  }
+}
