@@ -16,8 +16,8 @@ class User {
           return reject(err);
         }
         return resolve(result);
-      })
-    })
+      });
+    });
   }
 
   static async findAll() {
