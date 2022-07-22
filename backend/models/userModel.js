@@ -1,6 +1,7 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('../config/db');
+const {execute} = require('../utils/queryExecutor');
 
 class User {
 
@@ -10,47 +11,31 @@ class User {
     VALUES ('${firstName}', '${lastName}', '${username}', '${email}', '${password}')
     `;
 
-    return new Promise((resolve, reject) => {
-      db.query(sql, (err, result) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(result);
-      });
-    });
+    return execute(sql);
+  }
+
+  static async update(id, firstName, lastName, username, password) {
+
+  }
+
+  static async delete(id) {
+    let sql = `DELETE FROM user WHERE id=${id};`
+    return execute(sql);
   }
 
   static async findAll() {
     let sql = `SELECT * from user;`;
-    
-    return new Promise ((resolve, reject) => {
-      db.execute(sql, (error, result) => {
-        if (error) return reject(error);
-        return resolve(result);
-      });
-    });
+    return execute(sql);
   }
 
   static async findById(id) {
     let sql = `SELECT * FROM user WHERE id = ${id}`
-    
-    return new Promise ((resolve, reject) => {
-      db.execute(sql, (error, result) => {
-        if (error) return reject(error);
-        return resolve(result);
-      });
-    });
+    return execute(sql);
   }
 
   static async findByEmail(email) {
     let sql = `SELECT * FROM user WHERE e_mail = '${email}';`
-    
-    return new Promise ((resolve, reject) => {
-      db.execute(sql, (error, result) => {
-        if (error) return reject(error);
-        return resolve(result[0]);
-      });
-    });
+    return execute(sql);
   }
 
   static generateToken(id) {

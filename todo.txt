@@ -1,0 +1,49 @@
+
+USER
+* check data being sent in each request
+* disable database foreign key check when DELETE is used
+* login                   OK  OK
+* register                OK  OK
+* update user
+* delete user             OK  fix
+* get user by id          OK
+* get user by email       OK  OK
+
+
+PROJECT
+* create project		      OK  OK
+* update project		      OK  OK
+* delete project		      OK  OK
+* get tasks of a project	OK  OK
+* get project by id		    OK  OK
+* get all projects		    OK  OK
+
+TASK
+* create task			        OK
+* update task			        OK
+* delete task			        OK
+* get subtasks of a task	OK
+* get comments of a task	OK
+* get task by id		      OK
+
+SUBTASK
+* create subtask          OK
+* update subtask          OK
+* delete subtask          OK
+* get subtask by id       OK
+
+USER PROJECT
+* add user to project               OK
+* delete user from project          OK 
+* get users of a project            OK
+* get projects of a user            OK
+* get tasks of a user in a project
+
+USER TASK
+* add user to task
+* delete user from task
+* get users of a task
+* get tasks of a user
+
+COMMENT
+* create comment

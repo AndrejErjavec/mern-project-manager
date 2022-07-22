@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt')
-const asyncHandler = require('express-async-handler')
-const {errorHandler} = require('../middleware/errorMiddlewre')
-const User = require('../models/userModel')
+const bcrypt = require('bcrypt');
+const asyncHandler = require('express-async-handler');
+const {errorHandler} = require('../middleware/errorMiddlewre');
+const User = require('../models/userModel');
 
 const registerUser = asyncHandler(async (req, res) => {
   const {firstName, lastName, username, email, password} = req.body
@@ -24,6 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(201).json({
       id: user.insertId,
       token: User.generateToken(user.insertId),
+      message: 'Register successfull'
     });
   }
   else {
@@ -34,12 +35,14 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
   const {email, password} = req.body;
-  const user = await User.findByEmail(email);
+  const users = await User.findByEmail(email);
     
-  if (!user) {
+  if (users.length == 0) {
     return errorHandler({err:'User not found', req, res, status: 404})
     // res.status(404).json({'error': 'User not found'});
   }
+
+  const user = users[0];
 
   const pass = await User.validatePassword(password, user.password);
 
@@ -50,6 +53,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && pass) {
     res.status(201).json({
       token: User.generateToken(user.id),
+      message: 'Login successfull'
     })
   }
   // else {
@@ -58,24 +62,43 @@ const loginUser = asyncHandler(async (req, res) => {
   // }
 });
 
-const getUser = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
+const updateUser = asyncHandler(async (req, res) => {
+
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+  const id = req.query.id;
+  const deletedUser = await User.delete(id);
+
+  if (deletedUser.affectedRows > 0) {
+    res.status(200).json({
+      message: 'User deleted successfully'
+    });
+  }
 })
+
+const getMe = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id)
+  res.status(200).json(user);
+});
 
 const getAll = asyncHandler(async (req, res) => {
   const users = await User.findAll();
-  res.status(200).json({users});
-})
+  res.status(200).json(users);
+});
 
-const getuserByEmail = asyncHandler(async (req, res) => {
+const getUserByEmail = asyncHandler(async (req, res) => {
   const user = await User.findByEmail(req.query.email);
-  res.status(200).json({user});
-})
+  res.status(200).json(user);
+});
+
 
 module.exports = {
   registerUser,
   loginUser,
-  getUser, 
+  updateUser,
+  deleteUser,
+  getMe, 
   getAll,
-  getuserByEmail
+  getUserByEmail
 }

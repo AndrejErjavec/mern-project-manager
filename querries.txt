@@ -1,0 +1,11 @@
+get users of a project
+SELECT * FROM user, (
+   SELECT user_id AS uid FROM user_project WHERE project_id=${projectId}
+) WHERE id=uid
+
+------------------------------
+
+get projects of a user
+SELECT * FROM project, (
+   SELECT project_id AS pid FROM user_project WHERE user_id=${userId}
+) WHERE id=pid
