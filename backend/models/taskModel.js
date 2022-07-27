@@ -2,16 +2,16 @@ const db = require('../config/db');
 const {execute} = require('../utils/queryExecutor');
 
 class Task {
-  static async create(name, createdAt, startDate, dueDate, status, priority, projectId) {
-    let sql = `INSERT INTO task (name, date_created, start_date, due_date, status, priority, project_id)
-    VALUES ('${name}', ${createdAt}, '${startDate}', '${dueDate}', '${status}', '${priority}', '${projectId}');`
+  static async create(name, createdAt, dueDate, priority, completed, projectId) {
+    let sql = `INSERT INTO task (name, date_created, due_date, priority, completed, project_id)
+    VALUES ('${name}', '${createdAt}', '${dueDate}', '${priority}', ${completed}, '${projectId}');`
 
     return execute(sql);
   }
 
-  static async update(id, name, startDate, dueDate, status, priority) {
-    let sql = `UPDATE task SET name = ${name}, start_date = ${startDate}, due_date = ${dueDate}?, status = ${status}, priority = ${priority}
-    WHERE id = ${id};`
+  static async update(id, name, dueDate, priority, completed) {
+    let sql = `UPDATE task SET name='${name}', due_date='${dueDate}', priority='${priority}', completed=${completed}
+    WHERE id=${id};`
 
     return execute(sql);
   }
@@ -21,7 +21,7 @@ class Task {
     return execute(sql);
   }
 
-  static async getTaskById(id) {
+  static async findById(id) {
     let sql = `SELECT * from task WHERE id = ${id};`
     return execute(sql);
   }
@@ -33,6 +33,11 @@ class Task {
 
   static async getComments(id) {
     let sql = `SELECT * from comment WHERE task_id = ${id};`
+    return execute(sql);
+  }
+
+  static findOneUserOfTask(userId, taskId) {
+    let sql = `SELECT * FROM user_task WHERE user_id=${userId} AND task_id = ${taskId};`
     return execute(sql);
   }
 

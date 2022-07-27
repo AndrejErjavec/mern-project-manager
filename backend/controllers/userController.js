@@ -43,7 +43,6 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const user = users[0];
-
   const pass = await User.validatePassword(password, user.password);
 
   if (!pass) {
@@ -92,6 +91,11 @@ const getUserByEmail = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findByEmail(req.query.id);
+  res.status(200).json(user);
+})
+
 
 module.exports = {
   registerUser,
@@ -100,5 +104,6 @@ module.exports = {
   deleteUser,
   getMe, 
   getAll,
-  getUserByEmail
+  getUserByEmail,
+  getUserById
 }

@@ -24,12 +24,12 @@ class User {
   }
 
   static async findAll() {
-    let sql = `SELECT * from user;`;
+    let sql = `SELECT id, first_name, last_name, username, e_mail from user;`;
     return execute(sql);
   }
 
   static async findById(id) {
-    let sql = `SELECT * FROM user WHERE id = ${id}`
+    let sql = `SELECT id, first_name, last_name, username, e_mail FROM user WHERE id = ${id}`
     return execute(sql);
   }
 

@@ -1,10 +1,9 @@
-const db = require('../config/db');
 const {execute} = require('../utils/queryExecutor');
 
 class Project {
-  static async create(name, description, createdAt, status, manager) {
-    let sql = `INSERT INTO project (name, description, date_created, status, manager_id)
-    VALUES ('${name}', '${description}', '${createdAt}', '${status}', '${manager}');
+  static async create(name, description, createdAt, manager) {
+    let sql = `INSERT INTO project (name, description, date_created, manager_id)
+    VALUES ('${name}', '${description}', '${createdAt}', '${manager}');
     `;
 
     // Weird stuff here...had to insert manager id with created project id into user_project table after creating a project.
@@ -16,9 +15,9 @@ class Project {
     return result;
   }
 
-  static async update(id, name, description, status) {
+  static async update(id, name, description) {
     let sql = `UPDATE project
-    SET name='${name}', description='${description}', status='${status}'
+    SET name='${name}', description='${description}'
     WHERE id=${id};`
 
     return execute(sql);

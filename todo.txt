@@ -1,49 +1,54 @@
 
 USER
-* check data being sent in each request
-* disable database foreign key check when DELETE is used
-* login                   OK  OK
-* register                OK  OK
+* login                   OK  OK  OK
+* register                OK  OK  OK
 * update user
 * delete user             OK  fix
-* get user by id          OK
-* get user by email       OK  OK
+* get user by id          OK  OK  OK
+* get user by email       OK  OK  OK
 
 
 PROJECT
-* create project		      OK  OK
-* update project		      OK  OK
-* delete project		      OK  OK
-* get tasks of a project	OK  OK
-* get project by id		    OK  OK
-* get all projects		    OK  OK
+* create project		      OK  OK  OK
+* update project		      OK  OK  OK
+* delete project		      OK  OK  OK
+* get tasks of a project	OK  OK  OK
+* get project by id		    OK  OK  OK
+* get all projects		    OK  OK  OK
 
 TASK
-* create task			        OK
-* update task			        OK
-* delete task			        OK
-* get subtasks of a task	OK
-* get comments of a task	OK
-* get task by id		      OK
+* create task			        OK  OK  OK
+* update task			        OK  OK  OK
+* delete task			        OK  OK  OK
+* get subtasks of a task	OK  OK  OK
+* get comments of a task	OK  OK
+* get task by id		      OK  OK  OK
 
 SUBTASK
-* create subtask          OK
-* update subtask          OK
-* delete subtask          OK
-* get subtask by id       OK
+* create subtask          OK  OK  OK
+* update subtask          OK  OK  OK
+* delete subtask          OK  OK  OK
+* get subtask by id       OK  OK  OK
 
 USER PROJECT
-* add user to project               OK
-* delete user from project          OK 
-* get users of a project            OK
-* get projects of a user            OK
-* get tasks of a user in a project
+* add user to project               OK  OK  OK
+* delete user from project          OK  OK  OK
+* get users of a project            OK  OK  OK
+* get projects of a user            OK  OK  OK
+* is user in a project		          OK  OK  OK 
 
 USER TASK
-* add user to task
-* delete user from task
-* get users of a task
-* get tasks of a user
+* add user to task                  OK  OK  OK
+* delete user from task             OK  OK  OK
+* get users of a task               OK  OK  OK
+* get tasks of a user in a project  OK  OK  OK
+* is user in a task                 OK  OK  OK
 
 COMMENT
-* create comment
+* create comment      OK  OK  OK
+* delete comment      OK  OK  OK
+* get comment by id   OK  OK  OK
+-----------------------------------------
+
+* disable database foreign key check when DELETE is used
+* fix time showing -2h

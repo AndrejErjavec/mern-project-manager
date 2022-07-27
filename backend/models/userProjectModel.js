@@ -1,4 +1,3 @@
-const db = require('../config/db');
 const {execute} = require('../utils/queryExecutor');
 
 class UserProject {
@@ -13,7 +12,7 @@ class UserProject {
   }
 
   static async findAllUsersOfProject(projectId) {
-    let sql = `SELECT first_name, last_name, username, e_mail, profile_picture
+    let sql = `SELECT id, first_name, last_name, username, e_mail
     FROM user, (  
        SELECT user_id AS uid
        FROM user_project 
@@ -22,6 +21,12 @@ class UserProject {
     WHERE id=uid;`;
 
    return execute(sql);
+  }
+
+  // used to determine whether a user is member of a project
+  static async findOneUserOfProject(userId, projectId) {
+    let sql = `SELECT user_id FROM user_project WHERE project_id=${projectId} AND user_id=${userId};`
+    return execute(sql);
   }
 
   static async findAllProjectsOfUser(userId) {

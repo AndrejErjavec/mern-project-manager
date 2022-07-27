@@ -1,37 +1,46 @@
 const asyncHandler = require('express-async-handler');
 const {errorHandler} = require('../middleware/errorMiddlewre');
 const Project = require('../models/projectModel');
+const userProject = require('../models/userProjectModel');
 
 const createProject = asyncHandler(async (req, res) => {
-  const {name, description, status} = req.body;
+  const {name, description} = req.body;
 
-  if (!name || !description || !status) {
+  if (!name || !description) {
     return errorHandler({err: 'Please fill all fields', req, res, status: 400});
   }
 
   const managerId = req.user.id;
   const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-  const project = await Project.create(name, description, createdAt, status, managerId);
+  const project = await Project.create(name, description, createdAt, managerId);
 
   if (project.affectedRows > 0) {
-    res.status(200).json({
+    res.status(201).json({
       id: project.insertId,
       message: 'Project created' 
     });
   }
   else {
-    return errorHandler({err: 'Project creation failed', status: 400});
+    return errorHandler({err: 'Project creation failed', req, res, status: 400});
   } 
 });
 
 const updateProject = asyncHandler(async (req, res) => {
   const id = req.query.id;
-  const {name, description, status} = req.body;
+  const {name, description} = req.body;
+  const userId = req.user.id;
 
-  const initialProject = await Project.findById(id);
+  const project = await Project.findById(id);
+  if (project.length == 0) {
+    return errorHandler({err: 'Project not found', req, res, status: 404});
+  }
 
-  const updatedProject = await Project.update(id, name, description, status);
+  if (project[0].manager_id != userId) {
+    return errorHandler({err: 'Not authorized', req, res, status: 401});
+  }
+
+  const updatedProject = await Project.update(id, name, description);
 
   if (updatedProject.affectedRows > 0) {
     res.status(200).json({
@@ -40,28 +49,46 @@ const updateProject = asyncHandler(async (req, res) => {
     });
   }
   else {
-    return errorHandler({err: 'Project update failed', status: 400});
+    return errorHandler({err: 'Project update failed', req, res, status: 400});
   }
 });
   
-
 const deleteProject = asyncHandler(async (req, res) => {
-  const id = req.query.id;
-  const deletedProject = await Project.delete(id);
+  const projectId = req.query.id;
+  const userId = req.user.id;
+
+  const project = await Project.findById(projectId);
+  if (project.length == 0) {
+    return errorHandler({err: 'Project not found', req, res, status: 404});
+  }
+
+  if (project[0].manager_id != userId) {
+    return errorHandler({err: 'Not authorized', req, res, status: 401});
+  }
+
+  const deletedProject = await Project.delete(projectId);
   
   if (deletedProject.affectedRows > 0) {
     res.status(200).json({
+      id: projectId,
       message: 'Project deleted successfully'
     });
   }
   else {
-    return errorHandler({err: 'Project deletion failed', status: 400});
+    return errorHandler({err: 'Project deletion failed', req, res, status: 400});
   }
 });
 
 const getProjectById = asyncHandler(async (req, res) => {
-  const id = req.query.id;
-  const project = await Project.findById(id);
+  const projectId = req.query.id;
+  const userId = req.user.id;
+
+  const user = await userProject.findOneUserOfProject(userId, projectId);
+  if (user.length == 0) {
+    return errorHandler({err: 'Not authorized', req, res, status: 400});
+  }
+
+  const project = await Project.findById(projectId);
   res.status(200).json(project);
 });
 
@@ -71,8 +98,15 @@ const getAllProjects = asyncHandler(async (req, res) => {
 });
 
 const getTasks = asyncHandler(async (req, res) => {
-  const id = req.query.id;
-  const tasks = await Project.getTasks(id);
+  const projectId = req.query.id;
+  const userId = req.user.id;
+
+  const user = await userProject.findOneUserOfProject(userId, projectId);
+  if (user.length == 0) {
+    return errorHandler({err: 'Not authorized', req, res, status: 400});
+  }
+
+  const tasks = await Project.getTasks(projectId);
   return res.status(200).json(tasks);
 });
 

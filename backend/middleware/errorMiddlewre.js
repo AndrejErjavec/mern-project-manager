@@ -6,6 +6,8 @@ const errorHandler = ({err, req, res, status=500}) => {
 		message: err
 		// stack: process.env.NODE_ENV === "production" ? null : err.stack,
 	});
+
+	throw new Error(err);
 };
 
 module.exports = {

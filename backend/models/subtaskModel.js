@@ -2,16 +2,16 @@ const db = require('../config/db');
 const {execute} = require('../utils/queryExecutor');
 
 class Subtask {
-  static async create(name, startDate, dueDate, status, priority, complete, taskId) {
-    let sql = `INSERT INTO subtask (name, start_date, due_date, status, priority, complete, task_id) 
-    VALUES('${name}', '${startDate}', '${dueDate}', '${status}', '${priority}', '${complete}', ${taskId},);`
+  static async create(name, createdAt, priority, completed, taskId) {
+    let sql = `INSERT INTO subtask (name, date_created, priority, completed, task_id) 
+    VALUES('${name}', '${createdAt}', '${priority}', ${completed}, ${taskId});`
 
     return execute(sql);
   }
 
-  static async update(id, name, startDate, dueDate, status, priority, complete) {
+  static async update(id, name, priority, completed) {
     let sql = `UPDATE subtask
-    SET name=${name}, start_date=${startDate}, due_date=${dueDate}, status=${status}, pririty=${priority}, complete=${complete}
+    SET name='${name}', priority='${priority}', completed=${completed}
     WHERE id = ${id};`
     
     return execute(sql);
