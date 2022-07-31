@@ -107,7 +107,6 @@ const getSubtasks = asyncHandler(async (req, res) => {
   const userId = req.user.id;
 
   const task = await Task.findById(taskId);
-  console.log(task);
   if (task.length == 0) {
     return errorHandler({err: 'Task not found', req, res, status: 404});
   }

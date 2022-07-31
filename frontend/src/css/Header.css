@@ -1,0 +1,39 @@
+:root {
+  --main-theme-color: #333333;
+  --title-color: #ffffff;
+}
+
+.header {
+  padding: 15px 30px;
+  background-color: var(--main-theme-color);
+  color: var(--title-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h1 {
+  margin: 0 0 0 10px;
+}
+
+.header-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-data {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-data p {
+  margin: 0 15px 0 10px;
+}
+
+.logout-btn {
+  cursor: pointer;
+}

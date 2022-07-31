@@ -23,7 +23,11 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user.affectedRows > 0) {
     res.status(201).json({
       id: user.insertId,
-      token: User.generateToken(user.insertId),
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      email: email,
+      token: User.generateToken(user.id),
       message: 'Register successfull'
     });
   }
@@ -51,6 +55,11 @@ const loginUser = asyncHandler(async (req, res) => {
   
   if (user && pass) {
     res.status(201).json({
+      id: user.id,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      username: user.username,
+      email: user.e_mail,
       token: User.generateToken(user.id),
       message: 'Login successfull'
     })

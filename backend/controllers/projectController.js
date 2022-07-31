@@ -18,6 +18,10 @@ const createProject = asyncHandler(async (req, res) => {
   if (project.affectedRows > 0) {
     res.status(201).json({
       id: project.insertId,
+      name: name,
+      description: description,
+      createdAt: createdAt,
+      managerId: managerId,
       message: 'Project created' 
     });
   }
