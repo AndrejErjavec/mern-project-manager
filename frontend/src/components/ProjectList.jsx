@@ -14,19 +14,18 @@ const ProjectList = () => {
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
   // is project form open?
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     projectService.getUserProjects(user.id)
     .then((projects) => {
-      dispatch({type: 'GET', payload: projects})
-      //setProjects(projects);
+      dispatch({type: 'GET', payload: projects});
     })
     .catch((err) => {
       setIsError(true);
       setMessage(err.message);
     })
-  }, []);
+  }, [dispatch, user.id]);
 
   useEffect(() => {
     if (isError) {
@@ -35,7 +34,7 @@ const ProjectList = () => {
   });
 
   const showForm = () => {
-    setIsOpen(true)
+    setIsFormOpen(true);
   };
 
   return (
@@ -56,7 +55,7 @@ const ProjectList = () => {
         ) : (<p>no projects to show</p>)}
       </section>
       {
-        isOpen && <CreateProjectForm setIsOpen={setIsOpen}/>
+        isFormOpen && <CreateProjectForm setIsOpen={setIsFormOpen}/>
       }
     </>
   )

@@ -1,6 +1,7 @@
 :root {
   --main-theme-color: #333333;
   --title-color: #ffffff;
+  --accent-color: rgb(0, 180, 180);
 }
 
 .header {

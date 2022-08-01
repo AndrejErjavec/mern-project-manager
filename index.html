@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .header1 {
+    padding: 20px;
+    background-color: rgb(53, 149, 204);
+    color: #fff;
+    grid-area: header1;
+  }
+
+  .sidebar1 {
+    padding: 20px;
+    background-color: rgb(28, 226, 104);
+    color: #fff;
+    grid-area: sidebar1;
+  }
+
+  .header2 {
+    padding: 20px;
+    background-color: rgb(207, 226, 32);
+    color: #fff;
+    grid-area: header2;
+  }
+
+  .content {
+    padding: 20px;
+    background-color: rgb(203, 32, 226);
+    color: #fff;
+    grid-area: content;
+  }
+
+  .sidebar2 {
+    padding: 20px;
+    background-color: rgb(226, 165, 32);
+    color: #fff;
+    grid-area: sidebar2;
+  }
+
+  .grid-container {
+    height: 100vh;
+    display: grid;
+    grid-template-areas: 
+      'header1 header1 header1'
+      'sidebar1 header2 header2'
+      'sidebar1 content sidebar2';
+  }
+
+</style>
+
+<body>
+  <div class="grid-container">
+    <div class="header1">header1</div>
+    <div class="sidebar1">sidebar</div>
+    <div class="header2">header2</div>
+    <div class="content">content</div>
+    <div class="sidebar2">sidebar2</div>
+  </div>
+</body>
+</html>

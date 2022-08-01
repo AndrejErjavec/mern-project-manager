@@ -3,6 +3,9 @@ import UserContext from '../context/store/UserStore';
 import {useNavigate} from 'react-router-dom';
 import Header from '../components/Header';
 import ProjectList from '../components/ProjectList';
+import ProjectSection from '../components/ProjectSection';
+import ProjectHeader from '../components/ProjectHeader';
+import '../css/Dashboard.css';
 
 const Dashboard = () => {
   const {user} = useContext(UserContext);
@@ -24,8 +27,19 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header user={user}></Header>
-      <ProjectList></ProjectList>
+      <div className="body">
+        <Header user={user}></Header>
+        <div className="project-content">
+          <ProjectList></ProjectList>
+          <div className="project-display">
+            <ProjectHeader></ProjectHeader>
+            <div className="krneki">
+              <div className="ticket"></div>
+              <div className="users"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
