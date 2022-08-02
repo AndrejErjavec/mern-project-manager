@@ -5,7 +5,7 @@ const Project = require('../models/projectModel');
 const UserProject = require('../models/userProjectModel');
 
 const createTask = asyncHandler(async (req, res) => {
-  const {name, dueDate, priority, completed} = req.body;
+  const {name, dueDate, description, priority, completed} = req.body;
 
   if (!name || !dueDate || !priority || completed == undefined) {
     return errorHandler({err: 'Please fill all fields',  req, res, status: 401});
@@ -26,11 +26,17 @@ const createTask = asyncHandler(async (req, res) => {
 
   const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-  const task = await Task.create(name, createdAt, dueDate, priority, completed, projectId);
+  const task = await Task.create(name, description, createdAt, dueDate, priority, completed, projectId);
 
   if (task.affectedRows > 0) {
     res.status(201).json({
       id: task.insertId,
+      projectId: projectId,
+      name: name,
+      description: description,
+      dueDate: dueDate,
+      priority: priority,
+      completed: completed,
       message: 'Task created'
     });
   }
@@ -41,7 +47,7 @@ const createTask = asyncHandler(async (req, res) => {
 
 const updateTask = asyncHandler(async (req, res) => {
   const taskId = req.query.id;
-  const {name, dueDate, priority, completed} = req.body;
+  const {name, dueDate, description, priority, completed} = req.body;
   const userId = req.user.id;
 
   if (!name || !dueDate || !priority) {
@@ -60,7 +66,7 @@ const updateTask = asyncHandler(async (req, res) => {
     return errorHandler({err: 'Not authorized', req, res, status: 401});
   }
 
-  const updatedTask = await Task.update(taskId, name, dueDate, priority, completed);
+  const updatedTask = await Task.update(taskId, name, dueDate, description, priority, completed);
 
   if (updatedTask.affectedRows > 0) {
     res.status(200).json({
@@ -122,26 +128,6 @@ const getSubtasks = asyncHandler(async (req, res) => {
   res.status(200).json(subtasks);
 });
 
-const getComments = asyncHandler(async (req, res) => {
-  const taskId = req.query.id;
-  const userId = req.user.id;
-
-  const task = await Task.findById(taskId);
-  if (task.length == 0) {
-    return errorHandler({err: 'Task not found', req, res, status: 404});
-  }
-
-  const project = await Project.findById(task[0].project_id);
-
-  const user = await UserProject.findOneUserOfProject(userId, project[0].id);
-  if (user.length == 0) {
-    return errorHandler({err: 'Not authorized', req, res, status: 401});
-  }
-
-  const comments = await Task.getComments(taskId);
-  res.status(200).json(comments);
-});
-
 const getTaskById = asyncHandler(async (req, res) => {
   const taskId = req.query.id;
   const userId = req.user.id;
@@ -166,6 +152,5 @@ module.exports = {
   updateTask,
   deleteTask,
   getSubtasks, 
-  getComments,
   getTaskById
 }

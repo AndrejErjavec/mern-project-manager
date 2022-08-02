@@ -1,7 +1,7 @@
 .body {
   height: 100vh;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
 .project-content {
@@ -13,7 +13,8 @@
 .project-display {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  /* width: 100%; */
+  flex: 1
 }
 
 .krneki {
@@ -22,13 +23,7 @@
   flex-direction: row;
 }
 
-.ticket {
-  background-color: rgb(147, 238, 241);
-  min-width: 1300px;
-}
-
 .users {
-  width: 100px;
+  width: 300px;
   background-color: #999;
-  flex: 1;
 }

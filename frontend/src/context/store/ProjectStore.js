@@ -2,14 +2,15 @@ import {createContext, useReducer} from 'react';
 import {ProjectReducer} from '../reducers/ProjectReducer';
 
 const initialState = {
-  projects: []
+  projects: [],
+  selected: undefined
 };
 
 const ProjectContext = createContext(initialState);
 
 export const ProjectStore = ({children}) => {
-  const [projects, dispatch] = useReducer(ProjectReducer, initialState);
-  return <ProjectContext.Provider value={{projects, dispatch}}>
+  const [store, dispatch] = useReducer(ProjectReducer, initialState);
+  return <ProjectContext.Provider value={{projects: store.projects, selected: store.selected, dispatch}}>
     {children}
   </ProjectContext.Provider>;
 }

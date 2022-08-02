@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import {UserStore} from './context/store/UserStore';
 import {ProjectStore} from './context/store/ProjectStore';
+import {TaskStore} from './context/store/TaskStore';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserStore>
       <ProjectStore>
-        <App />
+        <TaskStore>
+          <App />
+        </TaskStore>
       </ProjectStore>
     </UserStore>
   </React.StrictMode>

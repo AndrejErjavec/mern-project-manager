@@ -9,7 +9,6 @@ import '../css/ProjectList.css'
 
 const ProjectList = () => {
   const {user} = useContext(UserContext);
-  // const [projects, setProjects] = useState([]);
   const {projects, dispatch} = useContext(ProjectContext);
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
@@ -19,23 +18,25 @@ const ProjectList = () => {
   useEffect(() => {
     projectService.getUserProjects(user.id)
     .then((projects) => {
-      dispatch({type: 'GET', payload: projects});
+      dispatch({type: 'SET', payload: projects});
     })
     .catch((err) => {
-      setIsError(true);
       setMessage(err.message);
+      setIsError(true);
     })
   }, [dispatch, user.id]);
+
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
-  });
+  }, [isError, message]);
 
   const showForm = () => {
     setIsFormOpen(true);
   };
+
 
   return (
     <>
@@ -49,7 +50,7 @@ const ProjectList = () => {
         {projects.length > 0 ? (
           <div className="projects">
             {projects.map((project) => (
-              <ProjectItem project={project} key={project.id}></ProjectItem>
+              <ProjectItem key={project.id} project={project}></ProjectItem>
             ))}
           </div>
         ) : (<p>no projects to show</p>)}

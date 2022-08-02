@@ -1,11 +1,12 @@
 export const ProjectReducer = (state, action) => {
   switch (action.type) {
     case 'CREATE':
-      return [...state, action.payload]
-    case 'GET':
-      return action.payload
+      return {projects: [...state.projects, action.payload], selected: action.payload}
+    case 'SET':
+      return {projects: action.payload, selected: action.payload[0]}
+    case 'SELECT':
+      return {...state, selected: action.payload}
     default:
       return state
   }
 }
-

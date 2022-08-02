@@ -1,24 +1,28 @@
 import {useState, useEffect, useContext} from "react";
 import ProjectContext from '../context/store/ProjectStore';
-import projectService from '../features/projectService';
+import TaskContext from '../context/store/TaskStore';
+import taskService from '../features/taskService';
 import {toast} from "react-toastify";
 import {FaTimesCircle} from 'react-icons/fa';
-import '../css/ProjectForm.css';
 
-const CreateProjectForm = ({setIsOpen}) => {
+const CreateTaskForm = ({setIsOpen}) => {
   const [formData, setFormData] = useState({
     name: '',
-    description: ''
+    description: '',
+    dueDate: '',
+    priority: 'low',
+    completed: false
   });
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
-  
-  const {projects, selected, dispatch} = useContext(ProjectContext);
 
-  const {name, description} = formData;
+  const {selected} = useContext(ProjectContext);
+  const {tasks, dispatch} = useContext(TaskContext);
+
+  const {name, description, dueDate, priority, completed} = formData;
 
   useEffect(() => {
     if (isError) {
@@ -34,6 +38,7 @@ const CreateProjectForm = ({setIsOpen}) => {
     setIsLoading(false);
   }, [isError, isSuccess, message, isLoading]);
 
+
   const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -43,32 +48,27 @@ const CreateProjectForm = ({setIsOpen}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await projectService.createProject(formData);
-      const {id, name, description, createdAt, managerId} = response;
-      dispatch({type: 'CREATE', payload: {id, name, description, createdAt, managerId}});
-      setMessage(response.message);
-      setIsSuccess(true);
-      setIsError(false);
-      setIsLoading(false);
+      const response = await taskService.createTask(formData, selected.id);
+      const {id, projectId, name, description, dueDate, priority, completed} = response;
+      dispatch({type: 'CREATE', payload: {id, projectId, name, description, dueDate, priority, completed}});
       handleClose();
     } catch (err) {
       setMessage(err.response.data.message);
-      setIsError(true);
       setIsSuccess(false);
+      setIsError(true);
       setIsLoading(false);
-    }
+    }  
   };
 
   const handleClose = () => {
     setIsOpen(false);
-  }
+  };
 
   return (
     <div className="main-form-container">
       <section className="project-form-header">
-        <h2>Create a project</h2>
+        <h2>Create a task</h2>
         <FaTimesCircle className="close-btn" onClick={handleClose}></FaTimesCircle>
       </section>
       <section className="project-form">
@@ -79,9 +79,18 @@ const CreateProjectForm = ({setIsOpen}) => {
             id="name"
             name="name"
             value={name}
-            placeholder="Pick a name for your project" 
+            placeholder="Task name" 
             onChange={handleChange}
             />
+          </div>
+          <div className="form-group">
+            <label htmlFor="dueDate">due date</label>
+            <input 
+            type="date"
+            id="dueDate"
+            name="dueDate"
+            value={dueDate}
+            onChange={handleChange} />
           </div>
           <div className="form-group">
             <textarea
@@ -90,15 +99,23 @@ const CreateProjectForm = ({setIsOpen}) => {
             rows="5"
             cols="50"
             value={description}
-            placeholder="What is your project about?"
+            placeholder="Description"
             onChange={handleChange}
             />
           </div>
-          <button type="submit">Create Project</button>
+          <div className="form-group">
+            <label htmlFor="priority">priority</label>
+            <select name="priority" id="priority" onChange={handleChange}>
+              <option value="low">low</option>
+              <option value="normal">normal</option>
+              <option value="important">important</option>
+            </select>
+          </div>
+          <button type="submit">Create Task</button>
         </form>
       </section>
     </div> 
   )
 };
 
-export default CreateProjectForm;
+export default CreateTaskForm;

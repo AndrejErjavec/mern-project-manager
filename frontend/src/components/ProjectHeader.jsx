@@ -1,21 +1,17 @@
-import {useState, useEffect, usereducer} from 'react';
+import {useState, useEffect, useContext} from 'react';
+import ProjectContext from '../context/store/ProjectStore';
+import '../css/ProjectHeader.css'
 
 const ProjectHeader = () => {
+  const {selected} = useContext(ProjectContext);
+
+
   return (
     <nav className="project-header">
       <div className="project-header-left">
-        <h3>Project name</h3>
-        <button>New Task</button>
+        <h3>{selected ? selected.name : 'No project selected'}</h3>
+        <p>{selected ? selected.description : ''}</p>
       </div>
-      <section className="sorting">
-        <p>sort by:</p>
-        <ul>
-          <li>priority</li>
-          <li>due date</li>
-          <li>completed</li>
-        </ul>
-      </section>
-      
     </nav>
   )
 }

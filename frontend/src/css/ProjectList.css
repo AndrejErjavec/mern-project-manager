@@ -5,6 +5,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: thin;
+  padding: 0 15px;
 }
 
 .sidebar-header {
@@ -12,8 +13,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 0;
-  padding: 0 15px;
+  margin: 15px 0;
   /*border-bottom: 1px solid rgb(200, 200, 200);*/
 }
 

@@ -43,6 +43,11 @@ class Project {
     return execute(sql);
   }
 
+  static async getComments(id) {
+    let sql = `SELECT * from comment WHERE project_id = ${id};`
+    return execute(sql);
+  }
+
 }
 
 module.exports = Project;

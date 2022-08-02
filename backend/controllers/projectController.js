@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const {errorHandler} = require('../middleware/errorMiddlewre');
 const Project = require('../models/projectModel');
-const userProject = require('../models/userProjectModel');
+const UserProject = require('../models/userProjectModel');
 
 const createProject = asyncHandler(async (req, res) => {
   const {name, description} = req.body;
@@ -114,6 +114,24 @@ const getTasks = asyncHandler(async (req, res) => {
   return res.status(200).json(tasks);
 });
 
+const getComments = asyncHandler(async (req, res) => {
+  const projectId = req.query.id;
+  const userId = req.user.id;
+
+  const project = await Project.findById(project);
+  if (project.length == 0) {
+    return errorHandler({err: 'Project not found', req, res, status: 404});
+  }
+
+  const user = await UserProject.findOneUserOfProject(userId, project[0].id);
+  if (user.length == 0) {
+    return errorHandler({err: 'Not authorized', req, res, status: 401});
+  }
+
+  const comments = await Project.getComments(projectId);
+  res.status(200).json(comments);
+});
+
 
 module.exports = {
   createProject,
@@ -121,5 +139,6 @@ module.exports = {
   deleteProject, 
   getProjectById,
   getAllProjects,
-  getTasks
+  getTasks,
+  getComments
 }
