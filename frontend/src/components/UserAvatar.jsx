@@ -2,8 +2,8 @@ import '../css/UserAvatar.css';
 
 const UserAvatar = ({user}) => {
 
-  const firstLetter = user.firstName.substr(0, 1).toUpperCase();
-  const secondLetter = user.lastName.substr(0, 1).toUpperCase();
+  const firstLetter = user.first_name.substr(0, 1).toUpperCase();
+  const secondLetter = user.last_name.substr(0, 1).toUpperCase();
 
   return (
     <div className="user-avatar">

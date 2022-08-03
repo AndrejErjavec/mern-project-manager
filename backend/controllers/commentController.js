@@ -23,10 +23,15 @@ const createComment = asyncHandler(async (req, res) => {
 
   const comment = await Comment.create(userId, projectId, text, createdAt);
   if (comment.affectedRows > 0) {
-    res.status(200).json({
+    const response = {
       id: comment.insertId,
+      text: text,
+      user_id: userId,
+      project_id: projectId,
+      timestamp: createdAt,
       message: 'Comment created'
-    });
+    }
+    res.status(200).json(response);
   }
   else {
     return errorHandler({err: 'Comment creation failed', req, res, status: 400});

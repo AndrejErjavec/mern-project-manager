@@ -23,6 +23,18 @@ class UserTask {
     return execute(sql);
   }
 
+  static findUsersNotInTask(taskId) {
+    let sql = `SELECT id, first_name, last_name, username, e_mail
+    FROM user
+    WHERE id NOT IN (
+      SELECT user_id
+      FROM user_task
+      WHERE task_id=${taskId}
+    );`
+
+    return execute(sql);
+  }
+
   static async findOneUserOfTask(userId, projectId) {
     let sql = `SELECT user_id FROM user_project WHERE project_id=${projectId} AND user_id=${userId};`
     return execute(sql);

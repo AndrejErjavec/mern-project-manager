@@ -24,7 +24,7 @@ const Header = () => {
       </div>
       <div className="user-data">
         <UserAvatar user={user}></UserAvatar>
-        <p>{user.firstName} {user.lastName}</p>
+        <p>{user.first_name} {user.last_name}</p>
         <FaSignOutAlt onClick={onLogout} className="logout-btn"></FaSignOutAlt>
       </div>
     </header>

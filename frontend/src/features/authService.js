@@ -1,5 +1,4 @@
 import axios from '../config/axios';
-import {config} from '../config/config';
 
 const LOGIN_URL = '/api/user/';
 
@@ -23,7 +22,7 @@ const logout = () => {
 };
 
 const getUser = async (email) => {
-  const response = await axios.get(LOGIN_URL + `getuser?email=${email}`, config());
+  const response = await axios.get(LOGIN_URL + `getuser?email=${email}`);
   return response.data;
 }
 

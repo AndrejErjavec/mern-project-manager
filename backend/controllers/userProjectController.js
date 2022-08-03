@@ -79,6 +79,17 @@ const getUsersOfProject = asyncHandler(async (req, res) => {
   res.status(200).json(users);
 });
 
+const getUsersNotInProject = asyncHandler(async (req, res) => {
+  const projectId = req.query.id;
+
+  const user = await UserProject.findOneUserOfProject(req.user.id, projectId);
+  if (user.length == 0) {
+    return errorHandler({err: 'Not authorized', req, res, status: 401});
+  }
+
+  const users = await UserProject.findUsersNotInProject(projectId);
+  res.status(200).json(users);
+})
 
 const getProjectsOfUser = asyncHandler(async (req, res) => {
   const userId = req.query.id;
@@ -90,6 +101,7 @@ const getProjectsOfUser = asyncHandler(async (req, res) => {
 module.exports = {
   addUserToProject,
   removeUserFromProject,
-  getUsersOfProject, 
+  getUsersOfProject,
+  getUsersNotInProject,
   getProjectsOfUser,
 }

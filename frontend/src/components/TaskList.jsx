@@ -20,8 +20,6 @@ const TaskList = () => {
   const {selected} = useContext(ProjectContext);
   const {tasks, dispatch} = useContext(TaskContext);
 
-  console.log(tasks);
-
   useEffect(() => {
     if (selected) {
       projectService.getProjectTasks(selected.id)

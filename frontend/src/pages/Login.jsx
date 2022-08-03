@@ -51,8 +51,8 @@ const Login = () => {
 
     try {
       const response = await authService.login(userData);
-      const {id, firstName, lastName, email, username, token} = response;
-      dispatch({type: 'LOGIN', payload: {id, firstName, lastName, email, username, token}});
+      const {id, first_name, last_name, email, username, token} = response;
+      dispatch({type: 'LOGIN', payload: {id, first_name, last_name, email, username, token}});
       setIsSuccess(true);
       setIsLoading(false);
       setIsError(false);

@@ -18,13 +18,26 @@ const deleteTask = async (taskId) => {
 
 const getTaskById = async (taskId) => {
   const response = await axios.get(TASK_URL + `?id=${taskId}`);
+  return response.data;
+}
+
+const getTaskUsers = async (taskId) => {
+  const response = await axios.get(TASK_URL + `users?id=${taskId}`);
+  return response.data;
+}
+
+const getUsersNotInTask = async (taskId) => {
+  const response = await axios.get(TASK_URL + `notmembers?id=${taskId}`);
+  return response.data;
 }
 
 const taskService = {
   createTask,
   updateTask,
   deleteTask,
-  getTaskById
+  getTaskById,
+  getTaskUsers,
+  getUsersNotInTask
 }
 
 export default taskService;

@@ -16,22 +16,22 @@ const ProjectList = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+  }, [isError, message]);
+
+  useEffect(() => {
     projectService.getUserProjects(user.id)
     .then((projects) => {
       dispatch({type: 'SET', payload: projects});
     })
     .catch((err) => {
-      setMessage(err.message);
+      setMessage(err.response.data.message);
       setIsError(true);
     })
   }, [dispatch, user.id]);
 
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-  }, [isError, message]);
 
   const showForm = () => {
     setIsFormOpen(true);

@@ -93,11 +93,26 @@ const getUsersOfTask = asyncHandler(async (req, res) => {
   res.status(200).json(users);
 });
 
+const getUsersNotInTask = asyncHandler(async (req, res) => {
+  const taskId = req.query.id;
+
+  const task = await Task.findById(taskId);
+  if (task.length == 0) {
+    return errorHandler({err: 'Task not found', req, res, status: 404});
+  }
+
+  const user = await UserProject.findOneUserOfProject(req.user.id, task[0].project_id);   
+  if (user.length == 0) {
+    return errorHandler({err: 'Not authorized', req, res, status: 401});
+  }
+
+  const users = await UserTask.findUsersNotInTask(taskId);
+  res.status(200).json(users);
+});
+
 const getTasksOfUserInProject = asyncHandler(async (req, res) => {
   const userId = req.query.userId;
   const projectId = req.query.projectId;
-
-  
 
   const user = await UserProject.findOneUserOfProject(req.user.id, projectId);   
   if (user.length == 0) {
@@ -113,5 +128,6 @@ module.exports = {
   addUserToTask,
   removeUserFromTask,
   getUsersOfTask,
+  getUsersNotInTask,
   getTasksOfUserInProject,
 }

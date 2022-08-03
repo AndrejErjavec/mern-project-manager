@@ -23,8 +23,8 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user.affectedRows > 0) {
     res.status(201).json({
       id: user.insertId,
-      firstName: firstName,
-      lastName: lastName,
+      first_name: firstName,
+      last_name: lastName,
       username: username,
       email: email,
       token: User.generateToken(user.id),
@@ -56,8 +56,8 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && pass) {
     res.status(201).json({
       id: user.id,
-      firstName: user.first_name,
-      lastName: user.last_name,
+      first_name: user.first_name,
+      last_name: user.last_name,
       username: user.username,
       email: user.e_mail,
       token: User.generateToken(user.id),
@@ -101,8 +101,15 @@ const getUserByEmail = asyncHandler(async (req, res) => {
 });
 
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findByEmail(req.query.id);
-  res.status(200).json(user);
+  const user = await User.findById(req.query.id);
+  res.status(200).json({
+    id: user[0].id,
+    first_name: user[0].first_name,
+    last_name: user[0].last_name,
+    username: user[0].username,
+    email: user[0].e_mail,
+    token: User.generateToken(user.id)
+  });
 })
 
 

@@ -28,10 +28,20 @@ const getProjectTasks = async (projectId) => {
   return response.data;
 };
 
+const getProjectComments = async (projectId) => {
+  const response = await axios.get(PROJECT_URL + `comments?id=${projectId}`);
+  return response.data;
+}
+
 const getProjectUsers = async(projectId) => {
   const response = await axios.get(PROJECT_URL + `users?id=${projectId}`);
   return response.data;
 };
+
+const getUsersNotInProject = async (projectId) => {
+  const response = await axios.get(PROJECT_URL + `notmembers?id=${projectId}`);
+  return response.data;
+}
 
 const getUserProjects = async (userId) => {
   const response = await axios.get(PROJECT_URL + `users/projects?id=${userId}`);
@@ -54,7 +64,9 @@ const projectService = {
   deleteProject,
   getProjectById,
   getProjectTasks,
+  getProjectComments,
   getProjectUsers,
+  getUsersNotInProject,
   getUserProjects,
   addUser,
   removeUser,

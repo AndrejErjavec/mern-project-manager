@@ -4,6 +4,7 @@ import App from './App';
 import {UserStore} from './context/store/UserStore';
 import {ProjectStore} from './context/store/ProjectStore';
 import {TaskStore} from './context/store/TaskStore';
+import {CommentStore} from './context/store/CommentStore';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -11,7 +12,9 @@ root.render(
     <UserStore>
       <ProjectStore>
         <TaskStore>
-          <App />
+          <CommentStore>
+            <App />
+          </CommentStore>
         </TaskStore>
       </ProjectStore>
     </UserStore>

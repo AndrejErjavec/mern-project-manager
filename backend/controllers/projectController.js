@@ -105,7 +105,7 @@ const getTasks = asyncHandler(async (req, res) => {
   const projectId = req.query.id;
   const userId = req.user.id;
 
-  const user = await userProject.findOneUserOfProject(userId, projectId);
+  const user = await UserProject.findOneUserOfProject(userId, projectId);
   if (user.length == 0) {
     return errorHandler({err: 'Not authorized', req, res, status: 400});
   }
@@ -118,7 +118,7 @@ const getComments = asyncHandler(async (req, res) => {
   const projectId = req.query.id;
   const userId = req.user.id;
 
-  const project = await Project.findById(project);
+  const project = await Project.findById(projectId);
   if (project.length == 0) {
     return errorHandler({err: 'Project not found', req, res, status: 404});
   }

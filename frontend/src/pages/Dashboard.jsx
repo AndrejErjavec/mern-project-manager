@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import ProjectList from '../components/ProjectList';
 import ProjectHeader from '../components/ProjectHeader';
 import TaskList from '../components/TaskList';
+import CommentList from '../components/CommentList';
 import '../css/Dashboard.css';
 
 const Dashboard = () => {
@@ -37,7 +38,9 @@ const Dashboard = () => {
           <ProjectHeader></ProjectHeader>
           <div className="krneki">
             <TaskList></TaskList>
-            <div className="users"></div>
+            <div className="users">
+              <CommentList></CommentList>
+            </div>
           </div>
         </div>
       </div>
