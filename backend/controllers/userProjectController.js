@@ -21,8 +21,8 @@ const addUserToProject = asyncHandler(async (req, res) => {
   }
 
   // Is user already in project
-  const userExsists = await UserProject.findOneUserOfProject(userId, projectId);
-  if (userExsists.length > 0) {
+  const userExsistsP = await UserProject.findOneUserOfProject(userId, projectId);
+  if (userExsistsP.length > 0) {
     return errorHandler({err: 'User already exists', req, res, status: 404});
   }
 
@@ -30,10 +30,13 @@ const addUserToProject = asyncHandler(async (req, res) => {
   const user = await UserProject.findOneUserOfProject(req.user.id, projectId);
   if (user.length == 0) {
     return errorHandler({err: 'Not authorized', req, res, status: 401});
- }
+  }
 
   const userProject = await UserProject.add(userId, projectId);
-  res.status(200).json(userProject);
+  res.status(200).json({
+    user: userExists[0],
+    message: 'User added'
+  });
 });
 
 const removeUserFromProject = asyncHandler(async (req, res) => {

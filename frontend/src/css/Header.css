@@ -24,17 +24,12 @@
   align-items: center;
 }
 
-.user-data {
+.header-right {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
-}
-
-.user-data p {
-  margin: 0 15px 0 10px;
 }
 
 .logout-btn {
   cursor: pointer;
+  margin-left: 15px;
 }

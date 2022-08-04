@@ -31,13 +31,19 @@ const getUsersNotInTask = async (taskId) => {
   return response.data;
 }
 
+const getSubtasks = async (taskId) => {
+  const response = await axios.get(TASK_URL + `subtasks?id=${taskId}`);
+  return response.data;
+};
+
 const taskService = {
   createTask,
   updateTask,
   deleteTask,
   getTaskById,
   getTaskUsers,
-  getUsersNotInTask
+  getUsersNotInTask,
+  getSubtasks
 }
 
 export default taskService;

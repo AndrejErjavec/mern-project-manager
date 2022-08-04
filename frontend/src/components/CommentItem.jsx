@@ -1,7 +1,7 @@
 import {useState, useContext, useEffect} from 'react';
 import userService from '../features/userService';
 import UserContext from '../context/store/UserStore';
-import UserAvatar from './UserAvatar';
+import UserTicket from './UserTicket';
 import '../css/CommentItem.css';
 
 const CommentItem = ({comment}) => {
@@ -25,11 +25,10 @@ const CommentItem = ({comment}) => {
     <>
     {creator && <div className={`comment-item ${user.id === creator.id ? "comment-me" : "comment-other"}`}>
       <div className="comment-header">   
-      {creator && <p>{creator.first_name} {creator.last_name}</p>}
-      {creator && <UserAvatar user={creator}></UserAvatar>}
+      {creator && <UserTicket user={creator}></UserTicket>}
       </div>
       <div className="comment-text">
-        <p>{dateCreated} {timeCreated}</p>
+        <p className="date">{dateCreated} {timeCreated}</p>
         <p>{comment.text}</p>
       </div>
     </div>}

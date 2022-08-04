@@ -1,25 +1,27 @@
 import { useState, useEffect, useContext } from "react";
 import UserContext from '../context/store/UserStore';
-import CommentContext from '../context/store/CommentStore';
 import ProjectContext from '../context/store/ProjectStore';
+import MemberContext from '../context/store/MemberStore';
 import projectService from '../features/projectService';
-import commentService from '../features/commentService';
 import {toast} from "react-toastify";
-import CommentItem from './CommentItem';
-import '../css/ProjectList.css';
+import UserTicket from './UserTicket'
+import '../css/UserList.css';
 
 const CommentList = () => {
   const {user} = useContext(UserContext);
   const {selected} = useContext(ProjectContext);
-  const {comments, dispatch} = useContext(CommentContext);
 
-  const [formData, setFormData] = useState({
+
+  /*const [formData, setFormData] = useState({
     text: ''
-  });
+  });*/
+
+  const {members, dispatch} = useContext(MemberContext);
+
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
 
-  const {text} = formData;
+  //const {text} = formData;
 
   useEffect (() => {
     if (isError) {
@@ -31,9 +33,10 @@ const CommentList = () => {
 
   useEffect(() => {
     if (selected) {
-      projectService.getProjectComments(selected.id)
-      .then((comments) => {
-        dispatch({type: 'GET', payload: comments});
+      projectService.getProjectUsers(selected.id)
+      .then((members) => {
+        dispatch({type: 'GET', payload: members});
+        // dispatch({type: 'GET', payload: comments});
       })
       .catch((err) => {
         setMessage(err.response.data.message);
@@ -42,14 +45,15 @@ const CommentList = () => {
     }  
   }, [dispatch, selected]);
 
-  const handleChange = (e) => {
+
+  /*const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value
     }));
-  }
+  }*/
 
-  const handleSubmit = async (e) => {
+  /*const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await commentService.createComment(formData, selected.id);
@@ -60,28 +64,30 @@ const CommentList = () => {
       setMessage(err.response.data.message);
       setIsError(true);
     }
-  }
+  }*/
 
 
   return (
-    <section className="comment-list">
+    <section className="project-user-list">
       <div className="sidebar-header">
-        <h3>Project Chat</h3>
+        <h3>Project Users</h3>
       </div>
-
       {selected ? (
-          <div className="comments">
-            {comments.length > 0 ? (
+          <div className="users-x">
+            {members.length > 0 ? (
               <div>
-                {comments.map((comment) => (
-                <CommentItem key={comment.id} comment={comment}></CommentItem>
+                {members.map((member) => (
+                  <div className="user-item">
+                    {console.log(member)}
+                    <UserTicket key={user.id} user={member}></UserTicket>
+                  </div>
               ))}
               </div>
-            ) : (<p>no comments to show</p>)}
+            ) : (<p>no users in this project</p>)}
           </div>
         ) : (<p>select a project to show comments</p>)}
       
-      <div className="comment-form">
+      {/*<div className="comment-form">
         <form onSubmit={handleSubmit}>
           <input 
           type="text"
@@ -92,7 +98,7 @@ const CommentList = () => {
           onChange={handleChange} />
           <button type="submit">send</button>
         </form>
-      </div>
+      </div>*/}
     </section>
   );
 }

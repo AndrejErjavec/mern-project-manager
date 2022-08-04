@@ -47,13 +47,15 @@ const ProjectList = () => {
           Create New Project
         </button>
         </div>
-        {projects.length > 0 ? (
+        <div className="project-list">
+          {projects.length > 0 ? (
           <div className="projects">
             {projects.map((project) => (
               <ProjectItem key={project.id} project={project}></ProjectItem>
             ))}
           </div>
         ) : (<p>no projects to show</p>)}
+        </div>
       </section>
       {
         isFormOpen && <CreateProjectForm setIsOpen={setIsFormOpen}/>

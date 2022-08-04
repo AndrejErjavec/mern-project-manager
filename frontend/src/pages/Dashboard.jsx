@@ -6,13 +6,16 @@ import Header from '../components/Header';
 import ProjectList from '../components/ProjectList';
 import ProjectHeader from '../components/ProjectHeader';
 import TaskList from '../components/TaskList';
-import CommentList from '../components/CommentList';
+import TaskView from '../components/TaskView';
+import UserList from '../components/UserList';
 import '../css/Dashboard.css';
 
 const Dashboard = () => {
   const {user} = useContext(UserContext);
   const {projects, dispatch} = useContext(ProjectContext);
   const navigate = useNavigate();
+
+  const [taskViewOpen, setTaskViewOpen] = useState(false);
 
   // removed  projects from dependency array
   useEffect(() => {
@@ -37,9 +40,10 @@ const Dashboard = () => {
         <div className="project-display">
           <ProjectHeader></ProjectHeader>
           <div className="krneki">
-            <TaskList></TaskList>
+            <TaskList setTaskViewOpen={setTaskViewOpen}></TaskList>
+            {taskViewOpen && <TaskView setTaskViewOpen={setTaskViewOpen}></TaskView>}
             <div className="users">
-              <CommentList></CommentList>
+              <UserList></UserList>
             </div>
           </div>
         </div>

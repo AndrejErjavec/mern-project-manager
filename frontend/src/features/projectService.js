@@ -53,6 +53,11 @@ const addUser = async (userId, projectId) => {
   return response.data;
 };
 
+const addMultipleUsers = async (userIds, projectId) => {
+  const responses = Promise.all(userIds.map((userId) => addUser(userId, projectId)));
+  return responses;
+}
+
 const removeUser = async (userId, projectId) => {
   const response = await axios.delete(PROJECT_URL + `users/remove?userId=${userId}&projectId=${projectId}`);
   return response.data;
@@ -69,6 +74,7 @@ const projectService = {
   getUsersNotInProject,
   getUserProjects,
   addUser,
+  addMultipleUsers,
   removeUser,
 };
 

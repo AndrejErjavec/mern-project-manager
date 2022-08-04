@@ -3,18 +3,21 @@
   width: 350px;
   height: 100%;
   overflow-x: hidden;
+  border-right: 1px solid #ddd;
+}
+
+.project-list {
   overflow-y: auto;
-  scrollbar-width: thin;
-  padding: 0 15px;
+  height: calc(100% - 80px);
 }
 
 .sidebar-header {
+  padding: 0 15px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin: 15px 0;
-  /*border-bottom: 1px solid rgb(200, 200, 200);*/
 }
 
 /*.sidebar-header h2 {

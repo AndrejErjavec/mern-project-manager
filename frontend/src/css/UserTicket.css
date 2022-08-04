@@ -1,0 +1,9 @@
+.user-ticket {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-ticket p {
+  margin-left: 10px;
+}

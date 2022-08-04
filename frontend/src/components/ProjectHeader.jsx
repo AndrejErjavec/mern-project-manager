@@ -19,7 +19,7 @@ const ProjectHeader = () => {
         <p>{selected ? selected.description : ''}</p>
       </div>
       <div className="project-header-right">
-        <button onClick={showForm}>Add user to project</button>
+        {selected && <button onClick={showForm}>Add user to project</button>}
       </div>
     </nav>
 

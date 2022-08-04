@@ -13,6 +13,10 @@
   
 }
 
+.task-item p {
+  cursor: pointer;
+}
+
 .priority-important {
   background-color: #ff0a0a;
   padding: 0 10px;

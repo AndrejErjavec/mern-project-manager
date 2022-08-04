@@ -1,0 +1,15 @@
+.user-item {
+  margin-bottom: 15px;
+}
+
+.project-user-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.users-x {
+  padding: 0 15px;
+  background-color: rgb(255, 255, 255);
+  overflow-y: auto;
+}

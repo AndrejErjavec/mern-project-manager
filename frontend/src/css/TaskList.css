@@ -1,17 +1,21 @@
-.task-list {
+.tasks {
   display: block;
-  padding: 15px;
   background-color: rgb(236, 236, 236);
   min-width: 500px;
   flex: 1;
-  overflow-y: scroll;
+}
+
+.task-list {
+  overflow-y: auto;
+  height: calc(100% - 65px);
+  padding: 0 15px;
 }
 
 .task-list-header {
+  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
 
 .task-list-header p {

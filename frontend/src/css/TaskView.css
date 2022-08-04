@@ -1,0 +1,41 @@
+.task-view {
+  display: block;
+  padding: 15px;
+  background-color: rgb(236, 236, 236);
+  min-width: 500px;
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.task-header {
+  margin-bottom: 40px;
+}
+
+.priority-display {
+  display: flex;
+}
+
+.priority-display p {
+  margin-right: 10px;
+}
+
+.task-view button {
+  padding: 10px;
+  color: #fff;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.subtask-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  cursor: pointer;
+}

@@ -5,7 +5,7 @@
 }
 
 .project-content {
-  height: 100%;
+  height: calc(100% - 73px);
   display: flex;
   flex-direction: row;
 }
@@ -18,15 +18,12 @@
 }
 
 .krneki {
-  height: 100%;
+  height: calc(100% - 78px);
   display: flex;
   flex-direction: row;
 }
 
 .users {
-  padding: 15px;
-  width: 300px;
-  background-color: #999;
-  overflow-y: auto;
   display: flex;
+  width: 250px;
 }

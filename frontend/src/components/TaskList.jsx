@@ -8,7 +8,7 @@ import CreateTaskForm from './CreateTaskForm';
 import TaskItem from './TaskItem';
 import '../css/TaskList.css';
 
-const TaskList = () => {
+const TaskList = ({setTaskViewOpen}) => {
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ const TaskList = () => {
         dispatch({type: 'GET', payload: tasks});
       })
       .catch((err) => {
-        setMessage(err.message);
+        setMessage(err.response.data.message);
         setIsError(true);
       });
     }
@@ -46,7 +46,7 @@ const TaskList = () => {
 
   return (
     <>
-    <section className="task-list">
+    <section className="tasks">
       <div className="task-list-header">
         <div className="task-header-left">
           <h3>Tasks</h3>
@@ -64,11 +64,11 @@ const TaskList = () => {
       </div>
       
       {selected ? (
-          <div className="tasks">
+          <div className="task-list">
             {tasks.length > 0 ? (
               <div>
                 {tasks.map((task) => (
-                <TaskItem key={task.id} task={task}></TaskItem>
+                <TaskItem key={task.id} task={task} setTaskViewOpen={setTaskViewOpen}></TaskItem>
               ))}
               </div>
             ) : (<p>no tasks to show</p>)}

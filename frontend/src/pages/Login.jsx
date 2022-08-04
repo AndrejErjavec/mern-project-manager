@@ -45,7 +45,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userData= {
+    const userData = {
       email, password
     }
 
@@ -55,7 +55,6 @@ const Login = () => {
       dispatch({type: 'LOGIN', payload: {id, first_name, last_name, email, username, token}});
       setIsSuccess(true);
       setIsLoading(false);
-      setIsError(false);
       setMessage(response.message);
     } catch (err) {
       if (err.response.data) {

@@ -33,6 +33,11 @@ const createSubtask = asyncHandler(async (req, res) => {
   if (subTask.affectedRows > 0) {
     res.status(201).json({
       id: subTask.insertId,
+      task_id: taskId,
+      name: name,
+      priority: priority,
+      completed: completed,
+      cretedAt: createdAt,
       message: 'Subtask created'
     });
   }

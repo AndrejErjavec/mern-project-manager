@@ -1,4 +1,4 @@
-export const CommentReducer = (state, action) => {
+export const SubtaskReducer = (state, action) => {
   switch (action.type) {
     case 'CREATE':
       return [...state, action.payload]
