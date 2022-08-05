@@ -1,15 +1,13 @@
 import {createContext, useReducer} from 'react';
 import {SubtaskReducer} from '../reducers/SubtaskReducer';
 
-const initialState = {
-  subtasks: [],
-};
+const initialState = [];
 
 const SubtaskContext = createContext(initialState);
 
 export const SubtaskStore = ({children}) => {
-  const [subtasks, dispatch] = useReducer(SubtaskReducer, initialState);
-  return <SubtaskContext.Provider value={{subtasks, dispatch}}>
+  const [subtasks, subtaskDispatch] = useReducer(SubtaskReducer, initialState);
+  return <SubtaskContext.Provider value={{subtasks, subtaskDispatch}}>
     {children}
   </SubtaskContext.Provider>;
 }

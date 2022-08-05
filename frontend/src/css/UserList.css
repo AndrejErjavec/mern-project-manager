@@ -8,8 +8,11 @@
   overflow-y: auto;
 }
 
-.users-x {
+.user-sidebar-header {
+  padding: 15px;
+}
+
+.member-list {
   padding: 0 15px;
-  background-color: rgb(255, 255, 255);
   overflow-y: auto;
 }

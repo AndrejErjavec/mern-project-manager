@@ -18,13 +18,14 @@ const TaskList = ({setTaskViewOpen}) => {
 
   const {user} = useContext(UserContext);
   const {selected} = useContext(ProjectContext);
-  const {tasks, dispatch} = useContext(TaskContext);
+  const {tasks, taskDispatch} = useContext(TaskContext);
+
 
   useEffect(() => {
     if (selected) {
       projectService.getProjectTasks(selected.id)
       .then((tasks) => {
-        dispatch({type: 'GET', payload: tasks});
+        taskDispatch({type: 'GET', payload: tasks});
       })
       .catch((err) => {
         setMessage(err.response.data.message);
@@ -32,7 +33,8 @@ const TaskList = ({setTaskViewOpen}) => {
       });
     }
     
-  }, [dispatch, selected]);
+  }, [taskDispatch, selected]);
+
 
   useEffect(() => {
     if (isError) {
@@ -62,9 +64,9 @@ const TaskList = ({setTaskViewOpen}) => {
           </ul>
         </section>
       </div>
-      
+      <div className="task-list">
       {selected ? (
-          <div className="task-list">
+          <div>
             {tasks.length > 0 ? (
               <div>
                 {tasks.map((task) => (
@@ -72,12 +74,13 @@ const TaskList = ({setTaskViewOpen}) => {
               ))}
               </div>
             ) : (<p>no tasks to show</p>)}
-          </div>
+            </div>
+          
         ) : (<p>select a project to show tasks</p>)}
+        </div>
     </section>
-    {
-      isFormOpen && <CreateTaskForm setIsOpen={setFormOpen}/>
-    }
+    
+    {isFormOpen && <CreateTaskForm setIsOpen={setFormOpen}/>}
     </>
   )
 }

@@ -69,11 +69,12 @@ const updateSubtask = asyncHandler(async (req, res) => {
     return errorHandler({err: 'Not authorized', req, res, status: 401});
   }
 
-  const updatedSubtask = await Subtask.update(subtaskId, name, priority, completed);
+  const update = await Subtask.update(subtaskId, name, priority, completed);
+  const updatedSubtask = await Subtask.findById(subtaskId);
 
-  if (updatedSubtask.affectedRows > 0) {
+  if (update.affectedRows > 0) {
     res.status(200).json({
-      id: updatedSubtask.insertId,
+      subtask: updatedSubtask[0],
       message: 'Subtask updated successfully'
     });
   }

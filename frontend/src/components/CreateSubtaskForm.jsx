@@ -21,7 +21,7 @@ const CreateSubtaskForm = ({setFormOpen}) => {
   const [message, setMessage] = useState('');
 
   const {selected} = useContext(TaskContext);
-  const {subtasks, dispatch} = useContext(SubtaskContext);
+  const {subtasks, subtaskDispatch} = useContext(SubtaskContext);
 
   useEffect(() => {
     if (isError) {
@@ -50,7 +50,7 @@ const CreateSubtaskForm = ({setFormOpen}) => {
     try {
       const response = await subtaskService.createSubtask(formData, selected.id)
       const {id, task_id, name, priority, completed} = response;
-      dispatch({type: 'CREATE', payload: {id, task_id, name, priority, completed}});
+      subtaskDispatch({type: 'CREATE', payload: {id, task_id, name, priority, completed}});
       handleClose();
     } catch (err) {
       setMessage(err.response.data.message);

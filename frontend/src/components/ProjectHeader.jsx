@@ -16,7 +16,7 @@ const ProjectHeader = () => {
     <nav className="project-header">
       <div className="project-header-left">
         <h3>{selected ? selected.name : 'No project selected'}</h3>
-        <p>{selected ? selected.description : ''}</p>
+        <p>{selected ? selected.description : 'select or create a project'}</p>
       </div>
       <div className="project-header-right">
         {selected && <button onClick={showForm}>Add user to project</button>}

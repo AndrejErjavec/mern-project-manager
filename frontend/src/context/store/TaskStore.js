@@ -9,8 +9,8 @@ const initialState = {
 const TaskContext = createContext(initialState);
 
 export const TaskStore = ({children}) => {
-  const [store, dispatch] = useReducer(TaskReducer, initialState);
-  return <TaskContext.Provider value={{tasks: store.tasks, selected: store.selected, dispatch}}>
+  const [store, taskDispatch] = useReducer(TaskReducer, initialState);
+  return <TaskContext.Provider value={{tasks: store.tasks, selected: store.selected, taskDispatch}}>
     {children}
   </TaskContext.Provider>;
 }

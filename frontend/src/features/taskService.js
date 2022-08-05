@@ -7,8 +7,9 @@ const createTask = async (taskData, projectId) => {
   return response.data;
 }
 
-const updateTask = async (taskData) => {
-
+const updateTask = async (taskData, taskId) => {
+  const response = await axios.put(TASK_URL + `update?id=${taskId}`, taskData);
+  return response.data;
 };
 
 const deleteTask = async (taskId) => {

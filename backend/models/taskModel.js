@@ -9,8 +9,8 @@ class Task {
     return execute(sql);
   }
 
-  static async update(id, name, dueDate, priority, completed) {
-    let sql = `UPDATE task SET name='${name}', due_date='${dueDate}', priority='${priority}', completed=${completed}
+  static async update(id, name, dueDate, description, priority, completed) {
+    let sql = `UPDATE task SET name='${name}', due_date='${dueDate}', description='${description}', priority='${priority}', completed=${completed}
     WHERE id=${id};`
 
     return execute(sql);

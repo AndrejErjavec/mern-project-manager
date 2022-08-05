@@ -3,10 +3,12 @@
   width: 350px;
   height: 100%;
   overflow-x: hidden;
+  overflow-y: hidden;
   border-right: 1px solid #ddd;
 }
 
 .project-list {
+  padding: 0 15px;
   overflow-y: auto;
   height: calc(100% - 80px);
 }

@@ -4,6 +4,7 @@ import SubtaskContext from '../context/store/SubtaskStore';
 import CreateSubtaskForm from './CreateSubtaskForm';
 import taskService from '../features/taskService';
 import subtaskService from '../features/subtaskService';
+import SubtaskItem from './SubtaskItem';
 import {toast} from "react-toastify";
 import {FaArrowAltCircleLeft} from 'react-icons/fa';
 import '../css/TaskView.css';
@@ -17,19 +18,19 @@ const TaskView = ({setTaskViewOpen}) => {
   const [isFormOpen, setFormOpen] = useState(false);
 
   const {selected} = useContext(TaskContext);
-  const {subtasks, dispatch} = useContext(SubtaskContext);
+  const {subtasks, subtaskDispatch} = useContext(SubtaskContext);
 
   useEffect(() => {
     try {
       taskService.getSubtasks(selected.id)
       .then((subtasks) => {
-        dispatch({type: 'GET', payload: subtasks});
+        subtaskDispatch({type: 'GET', payload: subtasks});
       })
     } catch (err) {
       setMessage(err.response.data.message);
       setIsError(true);
     }
-  }, [dispatch, selected]);
+  }, [selected, subtaskDispatch]);
 
   useEffect(() => {
     if (isError) {
@@ -41,7 +42,7 @@ const TaskView = ({setTaskViewOpen}) => {
     setTaskViewOpen(false);
   }
 
-  const openForm = () => {
+  const handleOpen = () => {
     setFormOpen(true);
   }
 
@@ -64,13 +65,14 @@ const TaskView = ({setTaskViewOpen}) => {
       </div>
       <div className="subtask-header">
         <h3>Subtasks</h3>
-        <button onClick={openForm}>New Subtask</button>
+        <button onClick={handleOpen}>New Subtask</button>
       </div>
       <div className="subtasks">
-        {subtasks.length > 0 ? (<div>
+        {subtasks.length > 0 ? (
+        <div className="subtask-list">
           {subtasks.map((subtask) => (
-          <div>{subtask.name}</div>)
-          )}
+          <SubtaskItem key={subtask.id} subtask={subtask}></SubtaskItem>
+          ))}
         </div>) : (<p>No subtasks</p>)}
       </div>
     </section>

@@ -1,5 +1,5 @@
 import axios from '../config/axios';
-
+import taskService from './taskService';
 
 const PROJECT_URL = '/api/project/';
 

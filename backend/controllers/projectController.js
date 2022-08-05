@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const {errorHandler} = require('../middleware/errorMiddlewre');
 const Project = require('../models/projectModel');
 const UserProject = require('../models/userProjectModel');
+const Task = require('../models/taskModel');
 
 const createProject = asyncHandler(async (req, res) => {
   const {name, description} = req.body;
@@ -114,6 +115,18 @@ const getTasks = asyncHandler(async (req, res) => {
   return res.status(200).json(tasks);
 });
 
+const getTasksWithSubtasks = asyncHandler(async (req, res) => {
+  const projectId = req.query.id;
+  const userId = req.user.id;
+
+  const user = await UserProject.findOneUserOfProject(userId, projectId);
+  if (user.length == 0) {
+    return errorHandler({err: 'Not authorized', req, res, status: 400});
+  }
+
+  const tasks = await Project.getTasks(projectId);
+});
+
 const getComments = asyncHandler(async (req, res) => {
   const projectId = req.query.id;
   const userId = req.user.id;
@@ -140,5 +153,6 @@ module.exports = {
   getProjectById,
   getAllProjects,
   getTasks,
+  getTasksWithSubtasks,
   getComments
 }

@@ -4,13 +4,34 @@
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 15px;
   margin: 0 0 15px 0;
 }
 
-.task-item input {
-  
+.task-item-section {
+  width: 25%;
+  display: flex;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-mid {
+  justify-content: center;
+}
+
+.align-end {
+  justify-content: flex-end;
+}
+
+.task-item progress {
+  margin-right: 10px;
+}
+
+.task-item p {
+  margin-right: 10px;
 }
 
 .task-item p {

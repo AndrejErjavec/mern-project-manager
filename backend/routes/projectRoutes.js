@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {createProject, updateProject, deleteProject, getProjectById, getAllProjects, getTasks, getComments} = require('../controllers/projectController');
+const {createProject, updateProject, deleteProject, getProjectById, getAllProjects, getTasks, getTasksWithSubtasks, getComments} = require('../controllers/projectController');
 const {getUsersOfProject, getUsersNotInProject, getProjectsOfUser, addUserToProject, removeUserFromProject} = require('../controllers/userProjectController');
 const {protect} = require('../middleware/authMiddleware');
 
@@ -12,6 +12,7 @@ router.get('/users', protect, getUsersOfProject);
 router.get('/notmembers', protect, getUsersNotInProject);
 router.get('/all', protect, getAllProjects);
 router.get('/tasks', protect, getTasks);
+router.get('/taskswithsubtasks', protect, getTasksWithSubtasks);
 router.get('/comments', protect, getComments);
 router.post('/users/add', protect, addUserToProject);
 router.delete('/users/remove', protect, removeUserFromProject);

@@ -4,10 +4,10 @@ import ProjectContext from '../context/store/ProjectStore';
 import MemberContext from '../context/store/MemberStore';
 import projectService from '../features/projectService';
 import {toast} from "react-toastify";
-import UserTicket from './UserTicket'
+import UserItem from './UserItem'
 import '../css/UserList.css';
 
-const CommentList = () => {
+const UserList = () => {
   const {user} = useContext(UserContext);
   const {selected} = useContext(ProjectContext);
 
@@ -20,6 +20,7 @@ const CommentList = () => {
 
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
+
 
   //const {text} = formData;
 
@@ -69,23 +70,23 @@ const CommentList = () => {
 
   return (
     <section className="project-user-list">
-      <div className="sidebar-header">
+      <div className="user-sidebar-header">
         <h3>Project Users</h3>
       </div>
-      {selected ? (
-          <div className="users-x">
-            {members.length > 0 ? (
-              <div>
-                {members.map((member) => (
-                  <div className="user-item">
-                    {console.log(member)}
-                    <UserTicket key={user.id} user={member}></UserTicket>
-                  </div>
-              ))}
-              </div>
-            ) : (<p>no users in this project</p>)}
-          </div>
-        ) : (<p>select a project to show comments</p>)}
+      <div className="member-list">
+        {selected ? (
+        <div>
+          {members.length > 0 ? (
+            <div>
+              {members.map((member) => (
+              <UserItem key={member.id} user={member}></UserItem>
+            ))}
+            </div>
+          ) : (<p>no users in this project</p>)}
+        </div>
+        ) : (<p>select a project to show members</p>)}
+      </div>
+      
       
       {/*<div className="comment-form">
         <form onSubmit={handleSubmit}>
@@ -103,4 +104,4 @@ const CommentList = () => {
   );
 }
 
-export default CommentList;
+export default UserList;
