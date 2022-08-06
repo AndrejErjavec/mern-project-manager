@@ -31,10 +31,10 @@ const createTask = asyncHandler(async (req, res) => {
   if (task.affectedRows > 0) {
     res.status(201).json({
       id: task.insertId,
-      projectId: projectId,
+      project_id: projectId,
       name: name,
       description: description,
-      dueDate: dueDate,
+      due_date: dueDate,
       priority: priority,
       completed: completed,
       message: 'Task created'

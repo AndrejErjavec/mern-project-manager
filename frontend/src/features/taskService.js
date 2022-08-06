@@ -37,6 +37,16 @@ const getSubtasks = async (taskId) => {
   return response.data;
 };
 
+const addUser = async (userId, taskId) => {
+  const response = await axios.post(TASK_URL + `users/add?userId=${userId}&taskId=${taskId}`);
+  return response.data;
+}
+
+const addMultipleUsers = async (userIds, taskId) => {
+  const responses = Promise.all(userIds.map((userId) => addUser(userId, taskId)));
+  return responses;
+}
+
 const taskService = {
   createTask,
   updateTask,
@@ -44,7 +54,9 @@ const taskService = {
   getTaskById,
   getTaskUsers,
   getUsersNotInTask,
-  getSubtasks
+  getSubtasks,
+  addUser,
+  addMultipleUsers
 }
 
 export default taskService;

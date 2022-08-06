@@ -1,8 +1,8 @@
 import {useState, useContext, useEffect} from 'react';
-import ProjectContext from '../context/store/ProjectStore';
+import TaskContext from '../context/store/TaskStore';
 import MemberContext from '../context/store/MemberStore';
 import userService from '../features/userService';
-import projectService from '../features/projectService';
+import taskService from '../features/taskService';
 import UserTicket from './UserTicket';
 import {toast} from "react-toastify";
 import {FaTimesCircle} from 'react-icons/fa';
@@ -10,9 +10,9 @@ import '../css/ProjectForm.css';
 
 const AddUsersForm = ({setIsOpen}) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
+  //const {members} = useContext(MemberContext);
   const [users, setUsers] = useState([]);
-  const {dispatch} = useContext(MemberContext);
-  const {selected} = useContext(ProjectContext);
+  const {selected} = useContext(TaskContext);
 
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -38,7 +38,7 @@ const AddUsersForm = ({setIsOpen}) => {
     if (selected) {
       setIsLoading(true);
     try {
-      projectService.getUsersNotInProject(selected.id)
+      taskService.getUsersNotInTask(selected.id)
       .then((users) => {
         setUsers(users);
       })
@@ -56,9 +56,9 @@ const AddUsersForm = ({setIsOpen}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const responses = await projectService.addMultipleUsers(selectedUsers, selected.id);
-      const [...users] = responses.map(response => response.user);
-      dispatch({type: 'ADD', payload: users});
+      const responses = await taskService.addMultipleUsers(selectedUsers, selected.id);
+      console.log(responses);
+      // const [...users] = responses.map(response => response.user);
       setMessage('user(s) added');
       setIsSuccess(true);
     } catch(err) {
@@ -88,8 +88,8 @@ const AddUsersForm = ({setIsOpen}) => {
     <div className="main-form-container">
       <section className="project-form-header">
         <div className="project-header-left">
-          <h2>Add users</h2>
-        <p>Select users you want to add to the project</p>
+          <h2>Assign task to users</h2>
+        <p>Select users you want to add to the task</p>
         </div>
         <FaTimesCircle className="close-btn" onClick={handleClose}></FaTimesCircle>
       </section>

@@ -45,6 +45,20 @@
   flex-wrap: wrap;
 }
 
+.task-users {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.user-avatar-item {
+  margin-right: 3px;
+}
+
+.task-user-list {
+  display: flex;
+}
+
 .back-btn {
   cursor: pointer;
 }

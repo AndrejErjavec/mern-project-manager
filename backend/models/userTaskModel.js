@@ -26,10 +26,19 @@ class UserTask {
   static findUsersNotInTask(taskId) {
     let sql = `SELECT id, first_name, last_name, username, e_mail
     FROM user
-    WHERE id NOT IN (
-      SELECT user_id
-      FROM user_task
-      WHERE task_id=${taskId}
+    WHERE id IN (
+      SELECT user_id 
+      FROM user_project 
+      WHERE project_id IN ( 
+        SELECT project_id 
+        FROM task 
+        WHERE id=${taskId} 
+      ) 
+      AND user_id NOT IN (
+	      SELECT user_id
+        FROM user_task
+        WHERE task_id=${taskId}
+      )
     );`
 
     return execute(sql);

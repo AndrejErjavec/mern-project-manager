@@ -1,16 +1,16 @@
 .task-item {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   background-color: #fff;
   border-radius: 10px;
   padding: 15px;
   margin: 0 0 15px 0;
+  flex-wrap: wrap;
 }
 
 .task-item-section {
-  width: 25%;
+  flex-basis: 25%;
   display: flex;
 }
 

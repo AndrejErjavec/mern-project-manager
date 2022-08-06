@@ -8,6 +8,7 @@ const TaskItem = ({task, setTaskViewOpen}) => {
   const [completed, setCompleted] = useState(task.completed);
   const {taskDispatch} = useContext(TaskContext);
   const [subtasks, setSubtasks] = useState([]);
+  const [progress, setProgress] = useState(0);
   // const {subtasks, subtaskDispatch} = useContext(SubtaskContext);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const TaskItem = ({task, setTaskViewOpen}) => {
     setTaskViewOpen(true);
   }
 
-
+  
   // data processing for component - time
   const dueDate = task.due_date;
   const date = new Date(dueDate).toLocaleDateString('sl-SI');
@@ -52,6 +53,7 @@ const TaskItem = ({task, setTaskViewOpen}) => {
   const allSubtasks = subtasks.length;
   const completedSubtasks = subtasks.filter((subtask) => subtask.completed === 1).length;
   const completeRate = Math.floor((completedSubtasks / allSubtasks) * 100);
+  // setProgress(completeRate);
 
   return (
     <div className="task-item">

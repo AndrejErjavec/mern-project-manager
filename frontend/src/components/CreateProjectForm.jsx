@@ -26,6 +26,7 @@ const CreateProjectForm = ({setIsOpen}) => {
     }
     if (isSuccess) {
       toast.success(message);
+      handleClose();
     }
     // reset state
     setIsError(false);
@@ -52,7 +53,6 @@ const CreateProjectForm = ({setIsOpen}) => {
       setIsSuccess(true);
       setIsError(false);
       setIsLoading(false);
-      handleClose();
     } catch (err) {
       setMessage(err.response.data.message);
       setIsError(true);

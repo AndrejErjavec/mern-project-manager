@@ -20,7 +20,7 @@ const CreateTaskForm = ({setIsOpen}) => {
   const [message, setMessage] = useState('');
 
   const {selected} = useContext(ProjectContext);
-  const {tasks, dispatch} = useContext(TaskContext);
+  const {tasks, taskDispatch} = useContext(TaskContext);
 
   const {name, description, dueDate, priority, completed} = formData;
 
@@ -30,6 +30,7 @@ const CreateTaskForm = ({setIsOpen}) => {
     }
     if (isSuccess) {
       toast.success(message);
+      handleClose();
     }
     // reset state
     setIsError(false);
@@ -50,11 +51,15 @@ const CreateTaskForm = ({setIsOpen}) => {
     e.preventDefault();
     try {
       const response = await taskService.createTask(formData, selected.id);
-      const {id, projectId, name, description, dueDate, priority, completed} = response;
-      dispatch({type: 'CREATE', payload: {id, projectId, name, description, dueDate, priority, completed}});
-      handleClose();
+      const {id, project_id, name, description, due_date, priority, completed} = response;
+      taskDispatch({type: 'CREATE', payload: {id, project_id, name, description, due_date, priority, completed}});
+      setIsSuccess(true);
+      setMessage(response.message);
     } catch (err) {
-      setMessage(err.response.data.message);
+      console.log(err);
+      if (err.response.data) {
+        setMessage(err.response.data.message);
+      }
       setIsSuccess(false);
       setIsError(true);
       setIsLoading(false);

@@ -3,7 +3,7 @@ import subtaskService from '../features/subtaskService';
 import SubtaskContext from '../context/store/SubtaskStore';
 import '../css/SubtaskItem.css'
 
-const SubtaskItem = ({subtask}) =>{
+const SubtaskItem = ({subtask, setProgress}) =>{
   const [completed, setCompleted] = useState(subtask.completed);
   const {subtaskDispatch} = useContext(SubtaskContext)
 
@@ -15,6 +15,7 @@ const SubtaskItem = ({subtask}) =>{
     subtaskService.updateSubtask({name: subtask.name, priority: subtask.priority, completed: completed}, subtask.id)
     .then((response) => {
       // subtaskDispatch({type: 'UPDATE', payload: response.subtask});
+      // setProgress(progress => progress + )
     })
     .catch((err) => {
       console.log(err)

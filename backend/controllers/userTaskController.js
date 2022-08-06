@@ -41,7 +41,10 @@ const addUserToTask = asyncHandler(async (req, res) => {
  }
 
   const userTask = await UserTask.add(userId, taskId);
-  res.status(200).json(userTask);
+  res.status(200).json({
+    user: userExists,
+    message: 'User added'
+  });
 });
 
 const removeUserFromTask = asyncHandler(async (req, res) => {

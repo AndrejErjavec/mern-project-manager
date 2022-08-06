@@ -2,9 +2,11 @@ import {useState, useEffect, useContext} from 'react';
 import TaskContext from '../context/store/TaskStore';
 import SubtaskContext from '../context/store/SubtaskStore';
 import CreateSubtaskForm from './CreateSubtaskForm';
+import AddUsersTaskForm from './AddUsersTaskForm';
 import taskService from '../features/taskService';
 import subtaskService from '../features/subtaskService';
 import SubtaskItem from './SubtaskItem';
+import UserAvatar from './UserAvatar';
 import {toast} from "react-toastify";
 import {FaArrowAltCircleLeft} from 'react-icons/fa';
 import '../css/TaskView.css';
@@ -15,7 +17,10 @@ const TaskView = ({setTaskViewOpen}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+  const [users, setUsers] = useState([]);
+
   const [isFormOpen, setFormOpen] = useState(false);
+  const [usersFormOpen, setUsersFormOpen] = useState(false);
 
   const {selected} = useContext(TaskContext);
   const {subtasks, subtaskDispatch} = useContext(SubtaskContext);
@@ -33,6 +38,17 @@ const TaskView = ({setTaskViewOpen}) => {
   }, [selected, subtaskDispatch]);
 
   useEffect(() => {
+    taskService.getTaskUsers(selected.id)
+    .then((users) => {
+      setUsers(users);
+    })
+    .catch((err) => {
+      setMessage(err.response.data.message);
+      setIsError(true);
+    })
+  }, [selected]);
+
+  useEffect(() => {
     if (isError) {
       toast.error(message);
     }
@@ -42,8 +58,12 @@ const TaskView = ({setTaskViewOpen}) => {
     setTaskViewOpen(false);
   }
 
-  const handleOpen = () => {
+  const openSubtaskForm = () => {
     setFormOpen(true);
+  }
+
+  const openUsersForm = () => {
+    setUsersFormOpen(true);
   }
 
   const dueDate = selected.due_date;
@@ -61,11 +81,24 @@ const TaskView = ({setTaskViewOpen}) => {
           <p>priority: </p>
         <div className={`priority-${selected.priority}`}>{selected.priority}</div>
         </div>
-        
+        <div className="task-users">
+          <p>assigned users:</p>
+          {users.length > 0 ? (
+            <div className="task-user-list">
+              {users.map((user) => (
+                <div key={user.id} className="user-avatar-item">
+                  <UserAvatar user={user}></UserAvatar>
+                </div>
+              ))}
+            </div>
+          ) : (<p>no users assigned yet</p>)}
+        </div>
       </div>
+      
       <div className="subtask-header">
         <h3>Subtasks</h3>
-        <button onClick={handleOpen}>New Subtask</button>
+        <button onClick={openSubtaskForm}>New Subtask</button>
+        <button onClick={openUsersForm}>Assign to users</button>
       </div>
       <div className="subtasks">
         {subtasks.length > 0 ? (
@@ -77,6 +110,7 @@ const TaskView = ({setTaskViewOpen}) => {
       </div>
     </section>
     {isFormOpen && <CreateSubtaskForm setFormOpen={setFormOpen}></CreateSubtaskForm>}
+    {usersFormOpen && <AddUsersTaskForm setIsOpen={setUsersFormOpen}></AddUsersTaskForm>}
     </>
   )
 }
