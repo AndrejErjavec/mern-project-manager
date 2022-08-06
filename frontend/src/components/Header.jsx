@@ -20,11 +20,11 @@ const Header = () => {
     <header className="header">
       <div className="header-title">
         <FaTasks size="30px"></FaTasks>
-        <h1>React app</h1>
+        <h1>Project manager</h1>
       </div>
       <div className="header-right">
-        <UserTicket user={user}></UserTicket>
-        <FaSignOutAlt onClick={onLogout} className="logout-btn"></FaSignOutAlt>
+        {user && <UserTicket user={user}></UserTicket>}
+        {user && <FaSignOutAlt onClick={onLogout} className="logout-btn"></FaSignOutAlt>}
       </div>
     </header>
   )

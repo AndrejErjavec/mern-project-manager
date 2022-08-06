@@ -19,15 +19,16 @@ const registerUser = asyncHandler(async (req, res) => {
 
   //let user = new User(firstName, lastName, username, email, hashedPassword);
   const user = await User.create(firstName, lastName, username, email, hashedPassword);
+  const id = user.insertId;
 
   if (user.affectedRows > 0) {
     res.status(201).json({
-      id: user.insertId,
+      id: id,
       first_name: firstName,
       last_name: lastName,
       username: username,
       email: email,
-      token: User.generateToken(user.id),
+      token: User.generateToken(id),
       message: 'Register successfull'
     });
   }

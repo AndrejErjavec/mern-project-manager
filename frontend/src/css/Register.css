@@ -1,15 +1,11 @@
 .auth-form-container {
-  border: 2px solid #ccc;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 10px;
-  width: 500px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  padding: 20px 50px;
+  position: relative;
   border-radius: 10px;
 }
 
@@ -27,6 +23,7 @@
 .register-form form {
   display: flex;
   flex-direction: column;
+  width: 350px;
 }
 
 .register-form input {
@@ -36,18 +33,31 @@
   margin: 0 0 10px 0;
 }
 
+.form-bottom {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .form-group {
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
 .form-row {
   display: flex;
-  flex-direction: row;
+  /* was row before */
+  flex-direction: column;
 }
 
-.form-row input {
-  
+
+.form-row :nth-child(1){
+  margin-right: 2px;
+}
+
+.form-row :nth-child(2){
+  margin-left: 2px;
 }
 
 .register-form button {
@@ -59,4 +69,38 @@
   margin: 10px 0 0 0;
   font-weight: bold;
   cursor: pointer;
+}
+
+.register-left {
+  background-color: #fff;
+  background-image: url('../assets/images/tasks.png');
+  background-position: center;
+  background-size: 70%;
+  background-repeat: no-repeat;
+  width: 50%;
+}
+
+.register-right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(134, 235, 235);
+}
+
+.register-left a {
+  position: absolute;
+  bottom: 0;
+  text-decoration: none;
+  color: #000;
+}
+
+.page {
+  display: flex;
+  flex-direction: row;
+  height: calc(100% - 74px);
+}
+
+.login {
+  height: 100vh;
 }

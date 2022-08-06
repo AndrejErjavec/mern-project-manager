@@ -20,6 +20,7 @@ const protect = asyncHandler(async (req, res, next) => {
       // Because we generate token based on id, we can get the id from decoded token
       // Remove password from decoded token
       let user = (await User.findById(decoded.id))[0];
+      
       // We don't want to have the hashed password stored in req.user
       delete user.password;
       // User is not a pre-existing field in req. We could say req.something = user
@@ -28,6 +29,7 @@ const protect = asyncHandler(async (req, res, next) => {
       next();
 
     } catch (err) {
+      console.log(err);
       // return errorHandler({err: 'Not authorized', status: 401});
       res.status(401)
       throw new Error('Not authorized')

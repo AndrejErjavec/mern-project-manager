@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from "react";
+import {Link} from 'react-router-dom';
 import UserContext from '../context/store/UserStore';
 import {useNavigate} from 'react-router-dom';
 import {toast} from "react-toastify";
 import authService from '../features/authService';
+import Header from '../components/Header';
 import '../css/Register.css';
 
 const Register = () => {
@@ -56,8 +58,8 @@ const Register = () => {
     else {
       try {
         const response = await authService.register(userData);
-        const {id, firstName, lastName, email, username, token} = response;
-        dispatch({type: 'REGISTER', payload: {id, firstName, lastName, username, email, token}});
+        const {id, first_name, last_name, email, username, token} = response;
+        dispatch({type: 'REGISTER', payload: {id, first_name, last_name, username, email, token}});
         setFormData({firstName: '', lastName: '', username: '', email: '', password: '', password2: ''});
         setSuccess(true);
         setLoading(false);
@@ -85,9 +87,16 @@ const Register = () => {
   }
 
   return (
+    <div className="login">
+    <Header></Header>
+    <section className="page">
+    <section className="register-left">
+    <a href="https://www.freepik.com/vectors/time-isometric">Time isometric vector created by pikisuperstar - www.freepik.com</a>
+    </section>
+    <section className="register-right">
     <div className="auth-form-container">
       <section className="form-heading">
-        <h1>Register</h1>
+        <h2>Register</h2>
       </section>
       <section className="register-form">
         <form onSubmit={handleSubmit}>
@@ -157,10 +166,16 @@ const Register = () => {
             <button type="submit" className="submit-btn">
               Create Account
             </button>
+            <div className="form-bottom">
+              <p>Already have an account?</p>
+              <Link to={'/login'}>login</Link>
+            </div>
         </form>
       </section>
     </div>
-    
+    </section>
+    </section>
+    </div>
   )
 
 };

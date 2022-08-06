@@ -9,18 +9,10 @@ const SubtaskItem = ({subtask, setProgress}) =>{
 
   const handleChange = (e) => {
     setCompleted(completed => !completed);
+    subtaskService.updateSubtask({name: subtask.name, priority: subtask.priority, completed: completed}, subtask.id)
+    .then((response) => {})
   };
 
-  useEffect(() => {
-    subtaskService.updateSubtask({name: subtask.name, priority: subtask.priority, completed: completed}, subtask.id)
-    .then((response) => {
-      // subtaskDispatch({type: 'UPDATE', payload: response.subtask});
-      // setProgress(progress => progress + )
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [completed, subtask, subtaskDispatch]);
 
   return (
     <div className="subtask-item">

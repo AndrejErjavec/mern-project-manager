@@ -1,7 +1,9 @@
 import {useState, useEffect, useContext} from "react";
+import {Link} from 'react-router-dom';
 import UserContext from '../context/store/UserStore';
 import {useNavigate} from 'react-router-dom';
 import {toast} from "react-toastify";
+import Header from '../components/Header';
 import authService from '../features/authService';
 
 const Login = () => {
@@ -78,38 +80,52 @@ const Login = () => {
   }
 
   return (
-    <div className="auth-form-container">
-      <section className="register-form">
-        <section className="form-heading">
-          <h1>Login</h1>
+    <div className="login">
+      <Header></Header>
+      <section className="page">
+        <section className="register-left">
+        <a href="https://www.freepik.com/vectors/time-isometric">Time isometric vector created by pikisuperstar - www.freepik.com</a>
         </section>
-        <section className="form">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <input 
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="Email address"
-              onChange={handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <input 
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Password"
-              onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <button type="submit">
-                Login
-              </button>
-            </div>
-          </form>
+        <section className="register-right">
+          <div className="auth-form-container">
+            <section className="register-form">
+              <section className="form-heading">
+                <h2>Login</h2>
+              </section>
+              <section className="form">
+                <form onSubmit={handleSubmit}>
+                  <div className="form-group">
+                    <input 
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    placeholder="Email address"
+                    onChange={handleChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input 
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    placeholder="Password"
+                    onChange={handleChange} />
+                  </div>
+                  <div className="form-group">
+                    <button type="submit">
+                      Login
+                    </button>
+                  </div>
+                  <div className="form-bottom">
+                    <p>Don't have an account?</p>
+                    <Link to={'/register'}>register</Link>
+                  </div>
+                </form>
+              </section>
+            </section>
+          </div>
         </section>
       </section>
     </div>

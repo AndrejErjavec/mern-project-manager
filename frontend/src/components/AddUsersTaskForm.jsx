@@ -57,7 +57,6 @@ const AddUsersForm = ({setIsOpen}) => {
     e.preventDefault();
     try {
       const responses = await taskService.addMultipleUsers(selectedUsers, selected.id);
-      console.log(responses);
       // const [...users] = responses.map(response => response.user);
       setMessage('user(s) added');
       setIsSuccess(true);
