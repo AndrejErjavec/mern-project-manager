@@ -1,2 +1,2 @@
-# mern-project-manager
+# Project Manager
 Project manager app
