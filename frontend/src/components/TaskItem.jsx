@@ -6,7 +6,7 @@ import '../css/TaskItem.css';
 
 const TaskItem = ({task, setTaskViewOpen}) => {
   const [completed, setCompleted] = useState(task.completed);
-  const {taskDispatch} = useContext(TaskContext);
+  const {selected, taskDispatch} = useContext(TaskContext);
   const [subtasks, setSubtasks] = useState([]);
   const [progress, setProgress] = useState(0);
   // const {subtasks, subtaskDispatch} = useContext(SubtaskContext);
@@ -20,7 +20,7 @@ const TaskItem = ({task, setTaskViewOpen}) => {
     .catch((err) => {
       console.log(err);
     })
-  }, []);
+  }, [selected, task]);
 
   useEffect(() => {
     const fixDate = new Date(task.due_date).toISOString().slice(0, 19).replace('T', ' ');

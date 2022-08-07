@@ -12,7 +12,7 @@ import '../css/Dashboard.css';
 
 const Dashboard = () => {
   const {user} = useContext(UserContext);
-  const {projects, dispatch} = useContext(ProjectContext);
+  const {projects, projectDispatch} = useContext(ProjectContext);
   const navigate = useNavigate();
 
   const [taskViewOpen, setTaskViewOpen] = useState(false);
@@ -23,7 +23,7 @@ const Dashboard = () => {
     if (!user) {
       navigate('/login');
     }
-  }, [dispatch, navigate, projects, user]);
+  }, [navigate, user]);
 
 
   if (!user) {

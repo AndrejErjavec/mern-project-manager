@@ -9,8 +9,8 @@ const initialState = {
 const ProjectContext = createContext(initialState);
 
 export const ProjectStore = ({children}) => {
-  const [store, dispatch] = useReducer(ProjectReducer, initialState);
-  return <ProjectContext.Provider value={{projects: store.projects, selected: store.selected, dispatch}}>
+  const [store, projectDispatch] = useReducer(ProjectReducer, initialState);
+  return <ProjectContext.Provider value={{projects: store.projects, selected: store.selected, projectDispatch}}>
     {children}
   </ProjectContext.Provider>;
 }

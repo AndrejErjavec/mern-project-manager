@@ -16,7 +16,7 @@ const CreateProjectForm = ({setIsOpen}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   
-  const {projects, selected, dispatch} = useContext(ProjectContext);
+  const {projects, selected, projectDispatch} = useContext(ProjectContext);
 
   const {name, description} = formData;
 
@@ -48,7 +48,7 @@ const CreateProjectForm = ({setIsOpen}) => {
     try {
       const response = await projectService.createProject(formData);
       const {id, name, description, createdAt, managerId} = response;
-      dispatch({type: 'CREATE', payload: {id, name, description, createdAt, managerId}});
+      projectDispatch({type: 'CREATE', payload: {id, name, description, createdAt, managerId}});
       setMessage(response.message);
       setIsSuccess(true);
       setIsError(false);

@@ -6,6 +6,8 @@ export const ProjectReducer = (state, action) => {
       return {projects: action.payload, selected: action.payload[0]}
     case 'SELECT':
       return {...state, selected: action.payload}
+    case 'CLEAR':
+      return {projects: [], selected: undefined}
     default:
       return state
   }

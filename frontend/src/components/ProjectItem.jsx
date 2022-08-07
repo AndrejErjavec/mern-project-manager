@@ -4,14 +4,14 @@ import '../css/ProjectItem.css';
 
 const ProjectItem = ({project}) => {
 
-  const {dispatch} = useContext(ProjectContext);
+  const {projectDispatch} = useContext(ProjectContext);
 
   /*const setProject = () => {
     dispatch({type: 'SELECT', payload: project});
   }*/
 
   const selectProject = () => {
-    dispatch({type: 'SELECT', payload: project});
+    projectDispatch({type: 'SELECT', payload: project});
   }
 
   return (

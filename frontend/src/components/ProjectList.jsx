@@ -9,7 +9,7 @@ import '../css/ProjectList.css'
 
 const ProjectList = () => {
   const {user} = useContext(UserContext);
-  const {projects, dispatch} = useContext(ProjectContext);
+  const {projects, projectDispatch} = useContext(ProjectContext);
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
   // is project form open?
@@ -24,13 +24,13 @@ const ProjectList = () => {
   useEffect(() => {
     projectService.getUserProjects(user.id)
     .then((projects) => {
-      dispatch({type: 'SET', payload: projects});
+      projectDispatch({type: 'SET', payload: projects});
     })
     .catch((err) => {
       setMessage(err.response.data.message);
       setIsError(true);
     })
-  }, [dispatch, user.id]);
+  }, [projectDispatch, user.id]);
 
 
   const showForm = () => {

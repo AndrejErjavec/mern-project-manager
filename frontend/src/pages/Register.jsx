@@ -31,6 +31,7 @@ const Register = () => {
       toast.error(message);
     }
     if (success) {
+      toast.success(message);
       navigate('/');
     }
     setIsError(false);
