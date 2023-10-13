@@ -1,2 +1,2 @@
 # Project Manager
-Project manager app
+Full stack project manager application build with NodeJS, Express and ReactJS
